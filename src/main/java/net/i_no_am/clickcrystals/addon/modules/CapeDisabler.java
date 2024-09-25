@@ -1,9 +1,9 @@
 package net.i_no_am.clickcrystals.addon.modules;
 
-import io.github.itzispyder.clickcrystals.modules.Categories;
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
 import io.github.itzispyder.clickcrystals.modules.modules.DummyModule;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
+import net.i_no_am.clickcrystals.addon.client.AddonCategory;
 
 public class CapeDisabler extends DummyModule {
     private final SettingSection scGeneral = getGeneralSection();
@@ -14,6 +14,6 @@ public class CapeDisabler extends DummyModule {
             .build()
     );
     public CapeDisabler(){
-        super("cape-disabler", Categories.CLIENT,"Disable cc capes.");
+        super("cape-disabler", AddonCategory.ADDON,"Disable cc capes.");
     }
 }

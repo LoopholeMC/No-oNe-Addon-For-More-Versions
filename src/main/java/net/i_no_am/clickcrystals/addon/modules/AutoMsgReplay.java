@@ -3,12 +3,12 @@ package net.i_no_am.clickcrystals.addon.modules;
 import io.github.itzispyder.clickcrystals.events.EventHandler;
 import io.github.itzispyder.clickcrystals.events.events.client.ChatReceiveEvent;
 import io.github.itzispyder.clickcrystals.events.events.client.ChatSendEvent;
-import io.github.itzispyder.clickcrystals.modules.Categories;
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
 import io.github.itzispyder.clickcrystals.modules.modules.ListenerModule;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
 import io.github.itzispyder.clickcrystals.modules.settings.StringSetting;
 import io.github.itzispyder.clickcrystals.util.minecraft.ChatUtils;
+import net.i_no_am.clickcrystals.addon.client.AddonCategory;
 import net.i_no_am.clickcrystals.addon.utils.NetworkUtils;
 
 import java.util.Map;
@@ -43,7 +43,7 @@ public class AutoMsgReplay extends ListenerModule {
     );
 
     public AutoMsgReplay() {
-        super("auto-message-replay", Categories.CLIENT, "Automatically replay privately to players.");
+        super("auto-message-replay", AddonCategory.ADDON, "Automatically replay privately to players.");
     }
 
     @EventHandler
@@ -52,8 +52,6 @@ public class AutoMsgReplay extends ListenerModule {
         for (String keyword : keywords) {
             if (event.getMessage().contains(keyword.trim())) {
                 playerName = NetworkUtils.findPlayerFromMessage(event.getMessage());
-
-                // Check if the playerName is not the local player's name
                 if (playerName != null && !playerName.equals(mc.getSession().getUsername())) {
                     if (debug.getVal()) ChatUtils.sendMessage("Detected player: " + playerName);
                     startConversation = true;

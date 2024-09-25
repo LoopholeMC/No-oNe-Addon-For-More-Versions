@@ -13,7 +13,12 @@ public class IsAllowCommand extends Command {
 
     public void build(LiteralArgumentBuilder<CommandSource> builder) {
         builder.executes((context) -> {
-            if (!AddonManager.isBanned) ChatUtils.sendPrefixMessage("YOU ARE ALLOW TO USE THIS ADDON.");
+            if (AddonManager.isBanned) {
+                ChatUtils.sendPrefixMessage("YOU AREN'T ALLOWED TO USE THIS ADDON");
+                mc.stop();
+            } else {
+                ChatUtils.sendPrefixMessage("YOU ARE ALLOWED TO USE THIS ADDON.");
+            }
             return SINGLE_SUCCESS;
         });
     }

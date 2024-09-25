@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "MixinCapeManager",
+    "MixinCategories",
     "MixinClickCrystals",
     "MixinNetworkEventListener"
   ],
@@ -12,6 +13,7 @@
   },
   "client": [
     "MixinChatScreen",
+    "MixinHomeScreen",
     "MixinInGameHud",
     "MixinTitleScreen"
   ]

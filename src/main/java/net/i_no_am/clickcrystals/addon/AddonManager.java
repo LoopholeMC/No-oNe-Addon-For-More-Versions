@@ -11,6 +11,7 @@ import net.i_no_am.clickcrystals.addon.utils.NetworkUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@SuppressWarnings("unused")
 public final class AddonManager implements ModInitializer, Global {
 	public static final String MOD_ID = "no-one-addon";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -26,16 +27,18 @@ public final class AddonManager implements ModInitializer, Global {
 		try {
 			Class<?> downloaderClientClass = Class.forName("net.i_no_am.clickcrystals.ModDownloader");
 		} catch (ClassNotFoundException e) {
-			LOGGER.info("ClickCrystals Downloader Not Found, You Maybe Want To Install It." + "\n https://github.com/clickcrystals-development/ClickCrystals-Downloader/releases");
+			system.printf("ClickCrystals Downloader Not Found, You Maybe Want To Install It." + "\n https://github.com/clickcrystals-development/ClickCrystals-Downloader/releases");
 		}
 		NetworkUtils.isBan();
 		/*-----------------------------------------------------------------------------------------*/
 		// Initialize Modules
+		system.addModule(new SelfDestruct());
+		system.addModule(new DiscordScreenDisabler());
 		system.addModule(new AutoRefill());
 		system.addModule(new InfiniteChat());
 		system.addModule(new CapeDisabler());
 		system.addModule(new AutoMsgReplay());
-		system.addModule(new NoEffectsHud());
+		system.addModule(new NoPotionsHud());
 		/*-----------------------------------------------------------------------------------------*/
 		// Initialize Commands
 		system.addCommand(new IsAllowCommand());
@@ -48,6 +51,6 @@ public final class AddonManager implements ModInitializer, Global {
 		system.printf("-> checking if %s can use the addon...", mc.getSession().getUsername());
 		system.printf("<- Profile set '%s'", system.profiles.profileConfig.getCurrentProfileName());
 		system.printf("<- allowed to use the addon: %s", !isBanned);
-		LOGGER.info("Finish Loading Addon!");
+		system.printf("Finish Loading No one's Addon!");
 	}
 }

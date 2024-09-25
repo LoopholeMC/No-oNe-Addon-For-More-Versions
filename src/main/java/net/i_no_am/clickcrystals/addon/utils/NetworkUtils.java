@@ -9,10 +9,10 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Objects;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class NetworkUtils implements Global {
-
-    private static Set<String> cachedBannedPlayers;
 
     public static String findPlayerFromMessage(String message) {
         return Objects.requireNonNull(mc.getNetworkHandler()).getPlayerList().stream()
@@ -21,6 +21,8 @@ public class NetworkUtils implements Global {
                 .findFirst()
                 .orElse(null);
     }
+
+
 
     public static void isBan() {
         try {
