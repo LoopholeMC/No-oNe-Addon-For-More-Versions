@@ -34,10 +34,10 @@ public final class AddonManager implements ModInitializer, Global {
 		// Initialize Modules
 		system.addModule(new SelfDestruct());
 		system.addModule(new DiscordScreenDisabler());
-		system.addModule(new AutoRefill());
 		system.addModule(new InfiniteChat());
 		system.addModule(new CapeDisabler());
-		system.addModule(new AutoMsgReplay());
+		system.addModule(new MiddleClickPing());
+		system.addModule(new LootKeeper());
 		system.addModule(new NoPotionsHud());
 		/*-----------------------------------------------------------------------------------------*/
 		// Initialize Commands
