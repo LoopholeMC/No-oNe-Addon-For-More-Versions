@@ -6,6 +6,8 @@ import io.github.itzispyder.clickcrystals.data.JsonSerializable;
 import net.fabricmc.api.ModInitializer;
 
 import net.i_no_am.clickcrystals.addon.command.IsAllowCommand;
+import net.i_no_am.clickcrystals.addon.command.QuitCommand;
+import net.i_no_am.clickcrystals.addon.listener.AddonListener;
 import net.i_no_am.clickcrystals.addon.modules.*;
 import net.i_no_am.clickcrystals.addon.utils.NetworkUtils;
 import org.slf4j.Logger;
@@ -39,9 +41,14 @@ public final class AddonManager implements ModInitializer, Global {
 		system.addModule(new MiddleClickPing());
 		system.addModule(new LootKeeper());
 		system.addModule(new NoPotionsHud());
+		system.addModule(new HitColor());
+		system.addModule(new AutoCreeperIgnite());
 		/*-----------------------------------------------------------------------------------------*/
 		// Initialize Commands
+		system.addCommand(new QuitCommand());
 		system.addCommand(new IsAllowCommand());
+		// Initialize Events
+		system.addListener(new AddonListener());
 		/*-----------------------------------------------------------------------------------------*/
 		// Loading Configs and other checks (Because We disable The Regular CC Config Loading)
 		system.println("-> loading config...");

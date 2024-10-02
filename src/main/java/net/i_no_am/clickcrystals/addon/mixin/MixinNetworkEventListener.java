@@ -1,15 +1,11 @@
 package net.i_no_am.clickcrystals.addon.mixin;
 
 import io.github.itzispyder.clickcrystals.Global;
-import io.github.itzispyder.clickcrystals.events.events.networking.GameJoinEvent;
 import io.github.itzispyder.clickcrystals.events.events.networking.PacketReceiveEvent;
 import io.github.itzispyder.clickcrystals.events.listeners.NetworkEventListener;
 import io.github.itzispyder.clickcrystals.modules.Module;
-import net.i_no_am.clickcrystals.addon.screen.AddonScreen;
 import net.i_no_am.clickcrystals.addon.modules.CapeDisabler;
-import net.i_no_am.clickcrystals.addon.utils.NetworkUtils;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;

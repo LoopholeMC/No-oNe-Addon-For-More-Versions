@@ -15,6 +15,7 @@
     "MixinChatScreen",
     "MixinHomeScreen",
     "MixinInGameHud",
+    "MixinOverlayTexture",
     "MixinTitleScreen"
   ]
 }
