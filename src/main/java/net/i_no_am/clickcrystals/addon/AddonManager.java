@@ -34,7 +34,6 @@ public final class AddonManager implements ModInitializer, Global {
 		NetworkUtils.isBan();
 		/*-----------------------------------------------------------------------------------------*/
 		// Initialize Modules
-		system.addModule(new SelfDestruct());
 		system.addModule(new DiscordScreenDisabler());
 		system.addModule(new InfiniteChat());
 		system.addModule(new CapeDisabler());
@@ -42,7 +41,8 @@ public final class AddonManager implements ModInitializer, Global {
 		system.addModule(new LootKeeper());
 		system.addModule(new NoPotionsHud());
 		system.addModule(new HitColor());
-		system.addModule(new AutoCreeperIgnite());
+		system.addModule(new ModMenuDisabler());
+		system.addModule(new Prevent());
 		/*-----------------------------------------------------------------------------------------*/
 		// Initialize Commands
 		system.addCommand(new QuitCommand());
