@@ -3,6 +3,7 @@
   "package": "net.i_no_am.clickcrystals.addon.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "MixinBlockItem",
     "MixinCapeManager",
     "MixinCategories",
     "MixinClickCrystals",
@@ -15,6 +16,7 @@
     "MixinChatScreen",
     "MixinHomeScreen",
     "MixinInGameHud",
+    "MixinKeyBinding",
     "MixinOverlayTexture",
     "MixinTitleScreen"
   ]

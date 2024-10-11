@@ -26,9 +26,9 @@ public class MiddleClickPing extends ListenerModule {
                     PlayerListEntry entry = Objects.requireNonNull(mc.getNetworkHandler()).getPlayerListEntry(targetPlayer.getUuid());
                     if (entry != null) {
                         int ping = entry.getLatency();
-                        ChatUtils.sendPrefixMessage("Player " + targetPlayer.getName() + " has a ping of " + ping + " ms.");
+                        ChatUtils.sendPrefixMessage("Player " + targetPlayer.getName().getString() + " has a ping of " + ping + " ms.");
                     } else {
-                        ChatUtils.sendPrefixMessage("Could not retrieve ping for player " + targetPlayer.getName() + ".");
+                        ChatUtils.sendPrefixMessage("Could not retrieve ping for player " + targetPlayer.getName().getString() + ".");
                     }
                 }
             }

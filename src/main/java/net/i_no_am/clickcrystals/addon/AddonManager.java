@@ -43,6 +43,7 @@ public final class AddonManager implements ModInitializer, Global {
 		system.addModule(new HitColor());
 		system.addModule(new ModMenuDisabler());
 		system.addModule(new Prevent());
+		system.addModule(new SafeWalk());
 		/*-----------------------------------------------------------------------------------------*/
 		// Initialize Commands
 		system.addCommand(new QuitCommand());

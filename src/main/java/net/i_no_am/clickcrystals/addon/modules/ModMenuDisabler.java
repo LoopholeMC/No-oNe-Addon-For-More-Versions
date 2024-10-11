@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
+import com.terraformersmc.modmenu.gui.widget.ModListWidget;
 import io.github.itzispyder.clickcrystals.modules.modules.DummyModule;
 import net.fabricmc.loader.api.FabricLoader;
 import net.i_no_am.clickcrystals.addon.client.AddonCategory;
@@ -21,7 +22,6 @@ public class ModMenuDisabler extends DummyModule {
     public ModMenuDisabler() {
         super("mod-menu-disabler", AddonCategory.ADDON, "disable clickcrystals from showing on mod menu, re-launch game after enabling the module");
     }
-
     @Override
     public void onEnable() {
         try {
@@ -56,7 +56,11 @@ public class ModMenuDisabler extends DummyModule {
             }
         }
         catch (IOException | JsonSyntaxException ignore) {}
+        if (modListWidget != null)
+         modListWidget.reloadFilters();
     }
+
+    private ModListWidget modListWidget;
 
     private void addModToHiddenMods(JsonArray hiddenMods, String modId) {
         boolean alreadyHidden = false;
