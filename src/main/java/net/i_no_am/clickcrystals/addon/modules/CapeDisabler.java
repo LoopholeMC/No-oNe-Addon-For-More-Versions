@@ -1,11 +1,10 @@
 package net.i_no_am.clickcrystals.addon.modules;
 
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
-import io.github.itzispyder.clickcrystals.modules.modules.DummyModule;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
-import net.i_no_am.clickcrystals.addon.client.AddonCategory;
+import net.i_no_am.clickcrystals.addon.modules.data.AddonModule;
 
-public class CapeDisabler extends DummyModule {
+public class CapeDisabler extends AddonModule {
     private final SettingSection scGeneral = getGeneralSection();
     public final ModuleSetting<Boolean> disableStaffNotifications = scGeneral.add(createBoolSetting()
             .name("disable-staff-notifications")
@@ -14,6 +13,6 @@ public class CapeDisabler extends DummyModule {
             .build()
     );
     public CapeDisabler(){
-        super("cape-disabler", AddonCategory.ADDON,"Disable cc capes.");
+        super("cape-disabler", "Disable cc capes.");
     }
 }

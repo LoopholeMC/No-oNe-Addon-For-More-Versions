@@ -1,10 +1,9 @@
 package net.i_no_am.clickcrystals.addon.modules;
 
-import io.github.itzispyder.clickcrystals.modules.modules.DummyModule;
-import net.i_no_am.clickcrystals.addon.client.AddonCategory;
+import net.i_no_am.clickcrystals.addon.modules.data.AddonModule;
 
-public class InfiniteChat extends DummyModule {
+public class InfiniteChat extends AddonModule {
     public InfiniteChat(){
-    super("infinite-chat", AddonCategory.ADDON,"Removes the 256 character limit from the chat.");
+    super("infinite-chat","Removes the 256 character limit from the chat.");
     }
 }

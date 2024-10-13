@@ -43,7 +43,7 @@ public class LootKeeper extends ListenerModule {
     );
 
     @EventHandler
-    private void startThrowing(ClientTickEndEvent e) {
+    private void onTick(ClientTickEndEvent e) {
         if (PlayerUtils.invalid() || !isOn) return;
 
         List<String> itemsToKeep = Arrays.stream(listItem.getVal().split(","))

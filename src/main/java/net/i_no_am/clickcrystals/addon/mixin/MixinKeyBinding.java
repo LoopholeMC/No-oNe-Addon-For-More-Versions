@@ -25,7 +25,7 @@ public abstract class MixinKeyBinding implements Global {
     private void onIsPressed(CallbackInfoReturnable<Boolean> cir) {
         SafeWalk safeWalk = Module.get(SafeWalk.class);
         if (safeWalk.isEnabled() && this.equals(mc.options.sneakKey) && PlayerUtils.valid() && PlayerUtils.player().isOnGround() && PlayerUtils.player().getWorld().getBlockState(new BlockPos((int) Math.floor(PlayerUtils.getPos().getX()), (int) Math.floor(PlayerUtils.getPos().getY()) - 1, (int) Math.floor(PlayerUtils.getPos().getZ()))).isAir()) {
-            if (safeWalk.itemCheck.getVal()) {
+            if (safeWalk.itemCheck.getVal() && !safeWalk.itemNames.getVal().isEmpty()) {
                 if (HotbarUtils.nameContains(safeWalk.itemNames.getVal()) || HotbarUtils.nameContains(safeWalk.itemNames.getVal(), Hand.OFF_HAND)) {
                     cir.setReturnValue(true);
                 }

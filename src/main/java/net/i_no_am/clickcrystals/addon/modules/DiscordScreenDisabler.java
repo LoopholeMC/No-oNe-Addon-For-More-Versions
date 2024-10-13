@@ -1,10 +1,9 @@
 package net.i_no_am.clickcrystals.addon.modules;
 
-import io.github.itzispyder.clickcrystals.modules.modules.DummyModule;
-import net.i_no_am.clickcrystals.addon.client.AddonCategory;
+import net.i_no_am.clickcrystals.addon.modules.data.AddonModule;
 
-public class DiscordScreenDisabler extends DummyModule {
+public class DiscordScreenDisabler extends AddonModule {
     public DiscordScreenDisabler() {
-        super("discord-screen-disabler", AddonCategory.ADDON, "Cancel the annoying join discord sever screen.");
+        super("discord-screen-disabler", "Cancel the annoying join discord sever screen.");
     }
 }

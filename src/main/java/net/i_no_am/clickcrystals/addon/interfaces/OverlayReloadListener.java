@@ -1,11 +1,11 @@
-package net.i_no_am.clickcrystals.addon.listener;
+package net.i_no_am.clickcrystals.addon.interfaces;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public interface OverlayReloadListener {
     List<OverlayReloadListener> listeners = new ArrayList<>();
-    void onOverlayReload();
+    void no_oNe_Addon$onOverlayReload();
 
     static void register(OverlayReloadListener listener) {
         listeners.add(listener);
@@ -13,7 +13,7 @@ public interface OverlayReloadListener {
 
     static void callEvent() {
         for (OverlayReloadListener listener : listeners) {
-            listener.onOverlayReload();
+            listener.no_oNe_Addon$onOverlayReload();
         }
     }
 }

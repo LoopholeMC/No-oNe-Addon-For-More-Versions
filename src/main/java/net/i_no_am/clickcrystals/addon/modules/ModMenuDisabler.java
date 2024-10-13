@@ -5,10 +5,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import com.terraformersmc.modmenu.gui.widget.ModListWidget;
-import io.github.itzispyder.clickcrystals.modules.modules.DummyModule;
+import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
+import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
 import net.fabricmc.loader.api.FabricLoader;
-import net.i_no_am.clickcrystals.addon.client.AddonCategory;
+import net.i_no_am.clickcrystals.addon.modules.data.AddonModule;
 
 import java.io.File;
 import java.io.FileReader;
@@ -16,14 +16,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import static net.i_no_am.clickcrystals.addon.AddonManager.MOD_ID;
+public class ModMenuDisabler extends AddonModule {
 
-public class ModMenuDisabler extends DummyModule {
     public ModMenuDisabler() {
-        super("mod-menu-disabler", AddonCategory.ADDON, "disable clickcrystals from showing on mod menu, re-launch game after enabling the module");
+        super("mod-menu-disabler", "disable clickcrystals from showing on mod menu, re-launch game after enabling the module");
     }
+
+    private final SettingSection scGeneral = getGeneralSection();
+    public final ModuleSetting<String> modIdNames = scGeneral.add(createStringSetting()
+            .name("mods-id's")
+            .description("Comma-separated list of mod IDs that you want to hide.")
+            .def(MOD_ID + "," + modId)
+            .build()
+    );
+
     @Override
     public void onEnable() {
+        String modIdsString = modIdNames.getVal();
+        if (modIdsString.isEmpty()) return;
+
+        String[] modIds = modIdsString.split(",");
         try {
             Path configDir = FabricLoader.getInstance().getConfigDir();
             File modMenuConfigFile = configDir.resolve("modmenu.json").toFile();
@@ -33,10 +45,9 @@ public class ModMenuDisabler extends DummyModule {
                 return;
             }
 
-            JsonParser parser = new JsonParser();
             JsonObject modMenuConfig;
             try (FileReader reader = new FileReader(modMenuConfigFile)) {
-                modMenuConfig = parser.parse(reader).getAsJsonObject();
+                modMenuConfig = JsonParser.parseReader(reader).getAsJsonObject();
             }
 
             JsonArray hiddenMods;
@@ -47,22 +58,20 @@ public class ModMenuDisabler extends DummyModule {
                 modMenuConfig.add("hidden_mods", hiddenMods);
             }
 
-            addModToHiddenMods(hiddenMods, modId);
-            addModToHiddenMods(hiddenMods, MOD_ID);
+            for (String modId : modIds) {
+                addModToHiddenMods(hiddenMods, modId.trim());
+            }
 
             try (FileWriter writer = new FileWriter(modMenuConfigFile)) {
                 writer.write(modMenuConfig.toString());
                 writer.flush();
             }
-        }
-        catch (IOException | JsonSyntaxException ignore) {}
-        if (modListWidget != null)
-         modListWidget.reloadFilters();
+        } catch (IOException | JsonSyntaxException ignore) {}
     }
 
-    private ModListWidget modListWidget;
-
     private void addModToHiddenMods(JsonArray hiddenMods, String modId) {
+        if (modId.isEmpty()) return;
+
         boolean alreadyHidden = false;
         for (JsonElement element : hiddenMods) {
             if (element.getAsString().equals(modId)) {

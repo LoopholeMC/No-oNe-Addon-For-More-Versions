@@ -1,15 +1,14 @@
 package net.i_no_am.clickcrystals.addon.modules;
 
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
-import io.github.itzispyder.clickcrystals.modules.modules.DummyModule;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
-import net.i_no_am.clickcrystals.addon.client.AddonCategory;
+import net.i_no_am.clickcrystals.addon.modules.data.AddonModule;
 
 import java.awt.*;
 
-public class HitColor extends DummyModule {
+public class HitColor extends AddonModule {
     public HitColor(){
-    super("hit-color", AddonCategory.ADDON,"Change entity hit color.");
+    super("hit-color","Change entity hit color.");
     }
     private final SettingSection scGeneral = getGeneralSection();
     public final ModuleSetting<Double> green = scGeneral.add(createDoubleSetting()

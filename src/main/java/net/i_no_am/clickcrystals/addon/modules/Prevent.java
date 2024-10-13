@@ -4,12 +4,10 @@ import io.github.itzispyder.clickcrystals.modules.Module;
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
 import io.github.itzispyder.clickcrystals.modules.modules.ListenerModule;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
-import io.github.itzispyder.clickcrystals.util.minecraft.BlockUtils;
+import net.i_no_am.clickcrystals.addon.utils.BlockUtils;
 import io.github.itzispyder.clickcrystals.util.minecraft.HotbarUtils;
 import net.i_no_am.clickcrystals.addon.client.AddonCategory;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.RespawnAnchorBlock;
 import net.minecraft.item.Items;
 
 public class Prevent extends ListenerModule {
@@ -37,18 +35,15 @@ public class Prevent extends ListenerModule {
             .build()
     );
 
-    private boolean canExplode(BlockState blockState) {
-        return (blockState.get(RespawnAnchorBlock.CHARGES) == 1);
-    }
 
-   public boolean canPlace(BlockState blockState) {
+   public boolean canPlace() {
         if (Module.get(Prevent.class).isEnabled()) {
-            if (HotbarUtils.isHolding(Items.RESPAWN_ANCHOR) && disableDoubleAnchorPlacement.getVal() && BlockUtils.matchTargetBlock(Blocks.RESPAWN_ANCHOR)) {
+            if (HotbarUtils.isHolding(Items.RESPAWN_ANCHOR) && disableDoubleAnchorPlacement.getVal() && BlockUtils.isLookingAt(Blocks.RESPAWN_ANCHOR)) {
                 return true;
-            } else if (HotbarUtils.isHolding(Items.GLOWSTONE) && disableGlowstonePlacement.getVal() && !BlockUtils.matchTargetBlock(Blocks.RESPAWN_ANCHOR)) {
+            } else if (HotbarUtils.isHolding(Items.GLOWSTONE) && disableGlowstonePlacement.getVal() && !BlockUtils.isLookingAt(Blocks.RESPAWN_ANCHOR) || BlockUtils.anchorWithOneCharge()) {
                 return true;
             } else
-                return HotbarUtils.isHolding(Items.RESPAWN_ANCHOR) && disableAnchorOnGlowstone.getVal() && BlockUtils.matchTargetBlock(Blocks.GLOWSTONE) && canExplode(blockState);
+                return HotbarUtils.isHolding(Items.RESPAWN_ANCHOR) && disableAnchorOnGlowstone.getVal() && BlockUtils.isLookingAt(Blocks.GLOWSTONE);
         }
         return false;
     }

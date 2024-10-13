@@ -2,7 +2,7 @@ package net.i_no_am.clickcrystals.addon.mixin;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.itzispyder.clickcrystals.modules.Module;
-import net.i_no_am.clickcrystals.addon.listener.OverlayReloadListener;
+import net.i_no_am.clickcrystals.addon.interfaces.OverlayReloadListener;
 import net.i_no_am.clickcrystals.addon.modules.HitColor;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.texture.NativeImage;
@@ -10,6 +10,7 @@ import net.minecraft.client.texture.NativeImageBackedTexture;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -27,15 +28,17 @@ public abstract class MixinOverlayTexture implements OverlayReloadListener {
         OverlayReloadListener.register(this);
     }
 
-    public void onOverlayReload() {
+    public void no_oNe_Addon$onOverlayReload() {
         this.reloadOverlay();
     }
 
+    @Unique
     private static int getColorInt(int red, int green, int blue, int alpha) {
         alpha = 255 - alpha;
         return (alpha << 24) + (blue << 16) + (green << 8) + red;
     }
 
+    @Unique
     public void reloadOverlay() {
         NativeImage nativeImage = this.texture.getImage();
 

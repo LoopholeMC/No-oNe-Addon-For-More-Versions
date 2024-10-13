@@ -1,20 +1,19 @@
 package net.i_no_am.clickcrystals.addon.modules;
 
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
-import io.github.itzispyder.clickcrystals.modules.modules.DummyModule;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
-import net.i_no_am.clickcrystals.addon.client.AddonCategory;
+import net.i_no_am.clickcrystals.addon.modules.data.AddonModule;
 
-public class SafeWalk extends DummyModule {
+public class SafeWalk extends AddonModule {
     public SafeWalk(){
-        super("safe-walk", AddonCategory.ADDON,"crouch when the player in the edge of a block");
+        super("safe-walk","crouch when the player in the edge of a block");
     }
 
     private final SettingSection scGeneral = getGeneralSection();
     public final ModuleSetting<Boolean> itemCheck = scGeneral.add(createBoolSetting()
             .name("check-item-name")
             .description("If holding the requited item the module will work.")
-            .def(true)
+            .def(false)
             .build()
     );
     public final ModuleSetting<String> itemNames = scGeneral.add(createStringSetting()

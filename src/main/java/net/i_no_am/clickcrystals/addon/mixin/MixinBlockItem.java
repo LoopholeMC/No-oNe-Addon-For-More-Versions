@@ -3,9 +3,13 @@ package net.i_no_am.clickcrystals.addon.mixin;
 import io.github.itzispyder.clickcrystals.modules.Module;
 import net.i_no_am.clickcrystals.addon.modules.Prevent;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -14,10 +18,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BlockItem.class)
 public abstract class MixinBlockItem {
 
+    @Shadow protected abstract boolean checkStatePlacement();
 
-    @Inject(method = "canPlace",at = @At("RETURN"), cancellable = true)
-    private void canPlace(ItemPlacementContext context, BlockState state, CallbackInfoReturnable<Boolean> cir){
-    if (!Module.get(Prevent.class).canPlace(state))
-        cir.setReturnValue(false);
+    @Inject(method = "canPlace",at = @At("HEAD"), cancellable = true)
+    private void canPlaceBlocks(ItemPlacementContext context, BlockState state, CallbackInfoReturnable<Boolean> cir){
+        cir.setReturnValue(canPlace(context,state) && !Module.get(Prevent.class).canPlace());
     }
+     @Unique
+     protected boolean canPlace(ItemPlacementContext context, BlockState state) {
+         PlayerEntity playerEntity = context.getPlayer();
+         ShapeContext shapeContext = playerEntity == null ? ShapeContext.absent() : ShapeContext.of(playerEntity);
+         return (!this.checkStatePlacement() || state.canPlaceAt(context.getWorld(), context.getBlockPos())) && context.getWorld().canPlace(state, context.getBlockPos(), shapeContext);
+     }
 }
