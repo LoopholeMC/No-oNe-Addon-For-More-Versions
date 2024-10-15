@@ -29,8 +29,6 @@ dependencies {
 	modImplementation files("libs/ClickCrystals-1.21-1.2.9.jar")
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-	// Mod Menu
-	modImplementation "maven.modrinth:modmenu:${project.modmenu}"
 }
 
 processResources {

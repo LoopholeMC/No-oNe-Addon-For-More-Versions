@@ -7,6 +7,7 @@ import io.github.itzispyder.clickcrystals.util.minecraft.ChatUtils;
 import net.i_no_am.clickcrystals.addon.client.AddonCategory;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 
@@ -26,9 +27,9 @@ public class MiddleClickPing extends ListenerModule {
                     PlayerListEntry entry = Objects.requireNonNull(mc.getNetworkHandler()).getPlayerListEntry(targetPlayer.getUuid());
                     if (entry != null) {
                         int ping = entry.getLatency();
-                        ChatUtils.sendPrefixMessage("Player " + targetPlayer.getName().getString() + " has a ping of " + ping + " ms.");
+                        ChatUtils.sendPrefixMessage("Player " + Formatting.AQUA + targetPlayer.getName().getString() + Formatting.RESET + ping + " ms.");
                     } else {
-                        ChatUtils.sendPrefixMessage("Could not retrieve ping for player " + targetPlayer.getName().getString() + ".");
+                        ChatUtils.sendPrefixMessage("Could not retrieve ping for player " + Formatting.AQUA + targetPlayer.getName().getString() + Formatting.RESET + ".");
                     }
                 }
             }

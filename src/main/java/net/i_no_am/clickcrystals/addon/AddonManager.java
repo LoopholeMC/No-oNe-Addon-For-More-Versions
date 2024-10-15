@@ -5,7 +5,7 @@ import io.github.itzispyder.clickcrystals.data.Config;
 import io.github.itzispyder.clickcrystals.data.JsonSerializable;
 import net.fabricmc.api.ModInitializer;
 
-import net.i_no_am.clickcrystals.addon.command.CrashCommand;
+import net.i_no_am.clickcrystals.addon.command.NetherPortalCommand;
 import net.i_no_am.clickcrystals.addon.command.IsAllowCommand;
 import net.i_no_am.clickcrystals.addon.command.QuitCommand;
 import net.i_no_am.clickcrystals.addon.listener.AddonListener;
@@ -45,12 +45,13 @@ public final class AddonManager implements ModInitializer, Global {
 		system.addModule(new HitColor());
 		system.addModule(new ModMenuDisabler());
 		system.addModule(new Prevent());
+		system.addModule(new GhostInteractions());
 		system.addModule(new SafeWalk());
 		/*-----------------------------------------------------------------------------------------*/
 		// Initialize Commands
 		system.addCommand(new QuitCommand());
 		system.addCommand(new IsAllowCommand());
-		system.addCommand(new CrashCommand());
+		system.addCommand(new NetherPortalCommand());
 		// Initialize Events
 		system.addListener(new AddonListener());
 		/*-----------------------------------------------------------------------------------------*/
