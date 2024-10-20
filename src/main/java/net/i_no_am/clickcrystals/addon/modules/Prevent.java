@@ -16,26 +16,31 @@ public class Prevent extends AddonModule {
 
     private final SettingSection scGeneral = getGeneralSection();
 
-    public final ModuleSetting<Boolean> disableGlowstonePlacement = scGeneral.add(createBoolSetting()
-            .name("disable-placing-glowstone")
-            .description("Disable placing glowstone unless targeting a respawn anchor.")
+    public final ModuleSetting<Boolean> disableGlowstoneOnGlowstone = scGeneral.add(createBoolSetting()
+            .name("disable-placing-glowstone-on-glowstone")
+            .description("Disable placing glowstone unless not targeting a glowstone.")
             .def(true)
             .build()
     );
-
+        public final ModuleSetting<Boolean> disableP = scGeneral.add(createBoolSetting()
+            .name("disable-placing-anchor-on-anchor")
+            .description("Disable placing a respawn anchor on top of another anchor.")
+            .def(true)
+            .build()
+    );
     public final ModuleSetting<Boolean> disableAnchorOnGlowstone = scGeneral.add(createBoolSetting()
             .name("disable-placing-anchor-on-glowstone")
             .description("Disable placing a respawn anchor on glowstone.")
             .def(true)
             .build()
     );
-
     public final ModuleSetting<Boolean> disableDoubleAnchorPlacement = scGeneral.add(createBoolSetting()
             .name("disable-placing-anchor-on-anchor")
             .description("Disable placing a respawn anchor on top of another anchor.")
             .def(true)
             .build()
     );
+    
     public ActionResult cannotPlace() {
         if (HotbarUtils.isHolding(Items.RESPAWN_ANCHOR)
                 && disableDoubleAnchorPlacement.getVal()
@@ -54,7 +59,10 @@ public class Prevent extends AddonModule {
                 && disableAnchorOnGlowstone.getVal()
                 && BlockUtils.isLookingAt(Blocks.GLOWSTONE)) {
             return ActionResult.FAIL;
-        }
+        } else if isHolding(Items.GLOWSTONE)
+                && disableGlowstoneOnGlowstone.getVal()
+                && BlockUtils.isLookingAt(Blocks.GLOWSTONE)) {
+            return ActionResult.FAIL;
         return ActionResult.PASS;
     }
 }
