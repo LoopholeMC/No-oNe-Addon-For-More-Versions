@@ -6,11 +6,13 @@ import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
 import io.github.itzispyder.clickcrystals.modules.modules.ListenerModule;
 import io.github.itzispyder.clickcrystals.modules.settings.KeybindSetting;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
+import io.github.itzispyder.clickcrystals.util.minecraft.ChatUtils;
 import io.github.itzispyder.clickcrystals.util.minecraft.HotbarUtils;
 import io.github.itzispyder.clickcrystals.util.minecraft.PlayerUtils;
 import net.i_no_am.clickcrystals.addon.client.AddonCategory;
 import io.github.itzispyder.clickcrystals.modules.keybinds.Keybind;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import org.lwjgl.glfw.GLFW;
 
@@ -37,7 +39,10 @@ public class LootKeeper extends ListenerModule {
             .name("activate-module-bind")
             .description("Key to start throwing items not in the list.")
             .def(GLFW.GLFW_KEY_G)
-            .onPress(keybind -> isOn = !isOn)
+            .onPress(keybind -> {
+                isOn = !isOn;
+                ChatUtils.sendPrefixMessage("Module is " + (isOn ? Formatting.AQUA + "on" : Formatting.RED + "off") + Formatting.RESET);
+            })
             .condition((bind, screen) -> screen == null)
             .build()
     );
@@ -45,7 +50,6 @@ public class LootKeeper extends ListenerModule {
     @EventHandler
     private void onTick(ClientTickEndEvent e) {
         if (PlayerUtils.invalid() || !isOn) return;
-
         List<String> itemsToKeep = Arrays.stream(listItem.getVal().split(","))
                 .map(String::trim)
                 .map(String::toLowerCase)
