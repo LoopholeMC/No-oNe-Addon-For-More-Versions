@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("unused")
 public final class AddonManager implements ModInitializer, Global {
 	public static final String MOD_ID = "no-one-addon";
-	public static final String[] VERSION_NUMBER = {"1.21","1.21.1"};
+	public static final String VERSION_NUMBER = "0.6";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static Config config = JsonSerializable.load(Config.PATH_CONFIG, Config.class, new Config());
 	public static boolean isBanned = false;
@@ -28,11 +28,6 @@ public final class AddonManager implements ModInitializer, Global {
 	 **/
 	@Override
 	public void onInitialize() {
-		try {
-			Class<?> downloaderClientClass = Class.forName("net.i_no_am.clickcrystals.ModDownloader");
-		} catch (ClassNotFoundException e) {
-			system.printf("ClickCrystals Downloader Not Found, You Maybe Want To Install It." + "\n https://github.com/clickcrystals-development/ClickCrystals-Downloader/releases");
-		}
 		NetworkUtils.isBan();
 		/*-----------------------------------------------------------------------------------------*/
 		// Initialize Modules
@@ -44,6 +39,7 @@ public final class AddonManager implements ModInitializer, Global {
 		system.addModule(new NoPotionsHud());
 		system.addModule(new HitColor());
 		system.addModule(new ModMenuDisabler());
+		system.addModule(new UpsideDown());
 		system.addModule(new Prevent());
 		system.addModule(new GhostInteractions());
 		system.addModule(new SafeWalk());
@@ -52,7 +48,7 @@ public final class AddonManager implements ModInitializer, Global {
 		system.addCommand(new QuitCommand());
 		system.addCommand(new IsAllowCommand());
 		system.addCommand(new NetherPortalCommand());
-		// Initialize Events
+		// Initialize Listeners
 		system.addListener(new AddonListener());
 		/*-----------------------------------------------------------------------------------------*/
 		// Loading Configs and other checks (Because We disable The Regular CC Config Loading)

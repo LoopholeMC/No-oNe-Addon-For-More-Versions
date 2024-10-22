@@ -16,6 +16,7 @@
     "MixinHomeScreen",
     "MixinInGameHud",
     "MixinKeyBinding",
+    "MixinLivingEntityRenderer",
     "MixinOverlayTexture",
     "MixinPlayerInteractionManager",
     "MixinTitleScreen"

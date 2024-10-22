@@ -25,7 +25,9 @@ public class LootKeeper extends ListenerModule {
         super("loot-keeper", AddonCategory.ADDON, "Throw every item on slot that isn't in the list.");
     }
 
-    boolean isOn = false;
+    private boolean isOn = false;
+    private long lastThrowTime = 0;
+    private static final long THROW_DELAY_MS = 100;
 
     private final SettingSection scGeneral = getGeneralSection();
     public final ModuleSetting<String> listItem = scGeneral.add(createStringSetting()
@@ -50,6 +52,9 @@ public class LootKeeper extends ListenerModule {
     @EventHandler
     private void onTick(ClientTickEndEvent e) {
         if (PlayerUtils.invalid() || !isOn) return;
+
+        long currentTime = System.currentTimeMillis();
+
         List<String> itemsToKeep = Arrays.stream(listItem.getVal().split(","))
                 .map(String::trim)
                 .map(String::toLowerCase)
@@ -59,9 +64,10 @@ public class LootKeeper extends ListenerModule {
 
         ItemStack slot = PlayerUtils.player().getStackInHand(Hand.MAIN_HAND);
 
-        if (!slot.isEmpty() && !shouldKeepItem) {
-                PlayerUtils.player().dropSelectedItem(true);
-                if (slot.isEmpty()) PlayerUtils.player().swingHand(Hand.MAIN_HAND);
-            }
+        if (!slot.isEmpty() && !shouldKeepItem && (currentTime - lastThrowTime) >= THROW_DELAY_MS) {
+            PlayerUtils.player().dropSelectedItem(true);
+            lastThrowTime = currentTime;
+            if (slot.isEmpty()) PlayerUtils.player().swingHand(Hand.MAIN_HAND);
         }
     }
+}
