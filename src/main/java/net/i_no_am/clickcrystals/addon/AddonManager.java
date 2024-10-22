@@ -5,6 +5,7 @@ import io.github.itzispyder.clickcrystals.data.Config;
 import io.github.itzispyder.clickcrystals.data.JsonSerializable;
 import net.fabricmc.api.ModInitializer;
 
+import net.i_no_am.clickcrystals.addon.command.FreeRAMCommand;
 import net.i_no_am.clickcrystals.addon.command.NetherPortalCommand;
 import net.i_no_am.clickcrystals.addon.command.IsAllowCommand;
 import net.i_no_am.clickcrystals.addon.command.QuitCommand;
@@ -13,6 +14,12 @@ import net.i_no_am.clickcrystals.addon.modules.*;
 import net.i_no_am.clickcrystals.addon.utils.NetworkUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+/***
+ * 1.TODO: UPDATE VERSION_NUMBER to the latest version
+ * 2.TODO: UPDATE <a href="https://github.com/I-No-oNe/No-oNe-Addon/blob/main/.github/workflows/build.yml">...</a>
+ * 3.TODO: UPDATE SITE (<a href="https://github.com/I-No-oNe/i-no-one.github.io/edit/main/addon/version.html">...</a>)
+ */
 
 @SuppressWarnings("unused")
 public final class AddonManager implements ModInitializer, Global {
@@ -43,11 +50,13 @@ public final class AddonManager implements ModInitializer, Global {
 		system.addModule(new Prevent());
 		system.addModule(new GhostInteractions());
 		system.addModule(new SafeWalk());
+		system.addModule(new HideName());
 		/*-----------------------------------------------------------------------------------------*/
 		// Initialize Commands
 		system.addCommand(new QuitCommand());
 		system.addCommand(new IsAllowCommand());
 		system.addCommand(new NetherPortalCommand());
+		system.addCommand(new FreeRAMCommand());
 		// Initialize Listeners
 		system.addListener(new AddonListener());
 		/*-----------------------------------------------------------------------------------------*/

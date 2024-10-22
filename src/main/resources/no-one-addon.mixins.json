@@ -6,7 +6,8 @@
     "MixinCapeManager",
     "MixinCategories",
     "MixinClickCrystals",
-    "MixinNetworkEventListener"
+    "MixinNetworkEventListener",
+    "MixinTextVisitFactory"
   ],
   "injectors": {
     "defaultRequire": 1
