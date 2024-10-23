@@ -15,11 +15,10 @@ public class MixinLivingEntityRenderer {
     @Inject(method = "shouldFlipUpsideDown", at = @At("HEAD"), cancellable = true)
     private static void onRender(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
         UpsideDown u = Module.get(UpsideDown.class);
-
         if (u.isEnabled()) {
             cir.setReturnValue(!u.shouldIgnore(entity));
         } else {
-            cir.setReturnValue(true);
+            cir.setReturnValue(u.isEnabled());
         }
     }
 }

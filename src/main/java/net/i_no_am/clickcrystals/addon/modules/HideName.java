@@ -13,7 +13,7 @@ public class HideName extends AddonModule {
     public final ModuleSetting<String> fakeName = scGeneral.add(createStringSetting()
             .name("fake-player-name")
             .description("A name that your real name will be replaced with")
-            .def("!cc-user")
+            .def("Steve69")
             .build()
     );
 }

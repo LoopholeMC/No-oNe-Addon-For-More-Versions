@@ -16,15 +16,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /***
- * 1.TODO: UPDATE VERSION_NUMBER to the latest version
- * 2.TODO: UPDATE <a href="https://github.com/I-No-oNe/No-oNe-Addon/blob/main/.github/workflows/build.yml">...</a>
- * 3.TODO: UPDATE SITE (<a href="https://github.com/I-No-oNe/i-no-one.github.io/edit/main/addon/version.html">...</a>)
+ * TODO: UPDATE VERSION_NUMBER to the latest version
+ * TODO: UPDATE SITE (<a href="https://github.com/I-No-oNe/i-no-one.github.io/edit/main/addon/version.html">...</a>)
  */
 
 @SuppressWarnings("unused")
 public final class AddonManager implements ModInitializer, Global {
 	public static final String MOD_ID = "no-one-addon";
-	public static final String VERSION_NUMBER = "0.6";
+	public static final String VERSION_NUMBER = "0.7";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static Config config = JsonSerializable.load(Config.PATH_CONFIG, Config.class, new Config());
 	public static boolean isBanned = false;
