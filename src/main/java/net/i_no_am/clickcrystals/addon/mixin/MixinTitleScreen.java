@@ -23,7 +23,7 @@ public class MixinTitleScreen implements Global {
     private void initGame(CallbackInfo ci){
         if (AddonManager.isBanned && !FabricLoader.getInstance().isDevelopmentEnvironment()) {
         mc.setScreen(new AddonScreen());
-        } else if (!NetworkUtils.isUpdated()) {
+        } else if (!NetworkUtils.isUpdated() && !FabricLoader.getInstance().isDevelopmentEnvironment()) {
             mc.setScreen(new ConfirmScreen(
                     confirm -> {
                         if (confirm)

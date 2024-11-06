@@ -2,7 +2,6 @@ package net.i_no_am.clickcrystals.addon.command;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import io.github.itzispyder.clickcrystals.commands.Command;
-import io.github.itzispyder.clickcrystals.util.minecraft.ChatUtils;
 import net.i_no_am.clickcrystals.addon.AddonManager;
 import net.minecraft.command.CommandSource;
 
@@ -14,10 +13,10 @@ public class IsAllowCommand extends Command {
     public void build(LiteralArgumentBuilder<CommandSource> builder) {
         builder.executes((context) -> {
             if (AddonManager.isBanned) {
-                ChatUtils.sendPrefixMessage("YOU AREN'T ALLOWED TO USE THIS ADDON");
+                info("YOU AREN'T ALLOWED TO USE THIS ADDON");
                 mc.stop();
             } else {
-                ChatUtils.sendPrefixMessage("YOU ARE ALLOWED TO USE THIS ADDON.");
+                info("YOU ARE ALLOWED TO USE THIS ADDON.");
             }
             return SINGLE_SUCCESS;
         });

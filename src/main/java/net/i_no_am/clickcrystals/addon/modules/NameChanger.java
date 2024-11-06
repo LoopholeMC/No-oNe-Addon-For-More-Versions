@@ -4,16 +4,16 @@ import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
 import net.i_no_am.clickcrystals.addon.modules.data.AddonModule;
 
-public class HideName extends AddonModule {
-    public HideName(){
-        super("hide-name","hide your name and replace it with something other.");
+public class NameChanger extends AddonModule {
+    public NameChanger(){
+        super("name-changer","change your player name(client side)");
     }
 
     private final SettingSection scGeneral = getGeneralSection();
     public final ModuleSetting<String> fakeName = scGeneral.add(createStringSetting()
-            .name("fake-player-name")
+            .name("player-name")
             .description("A name that your real name will be replaced with")
-            .def("Steve69")
+            .def("Steve1")
             .build()
     );
 }

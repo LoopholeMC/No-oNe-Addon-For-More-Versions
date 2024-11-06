@@ -2,7 +2,6 @@ package net.i_no_am.clickcrystals.addon.command;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import io.github.itzispyder.clickcrystals.commands.Command;
-import io.github.itzispyder.clickcrystals.util.minecraft.ChatUtils;
 import io.github.itzispyder.clickcrystals.util.minecraft.PlayerUtils;
 import net.minecraft.block.Blocks;
 import net.minecraft.command.CommandSource;
@@ -50,9 +49,9 @@ public class NetherPortalCommand extends Command {
                 for (BlockPos portalPos : portalLocations) {
                     message.append(String.format("X: %d, Y: %d, Z: %d\n", portalPos.getX(), portalPos.getY(), portalPos.getZ()));
                 }
-                ChatUtils.sendPrefixMessage(message.toString());
+                info(message.toString());
             } else {
-                ChatUtils.sendPrefixMessage("No Nether portals found nearby.");
+                info("No Nether portals found nearby.");
             }
             return SINGLE_SUCCESS;
         });

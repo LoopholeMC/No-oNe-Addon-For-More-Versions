@@ -5,10 +5,7 @@ import io.github.itzispyder.clickcrystals.data.Config;
 import io.github.itzispyder.clickcrystals.data.JsonSerializable;
 import net.fabricmc.api.ModInitializer;
 
-import net.i_no_am.clickcrystals.addon.command.FreeRAMCommand;
-import net.i_no_am.clickcrystals.addon.command.NetherPortalCommand;
-import net.i_no_am.clickcrystals.addon.command.IsAllowCommand;
-import net.i_no_am.clickcrystals.addon.command.QuitCommand;
+import net.i_no_am.clickcrystals.addon.command.*;
 import net.i_no_am.clickcrystals.addon.listener.AddonListener;
 import net.i_no_am.clickcrystals.addon.modules.*;
 import net.i_no_am.clickcrystals.addon.utils.NetworkUtils;
@@ -23,7 +20,7 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("unused")
 public final class AddonManager implements ModInitializer, Global {
 	public static final String MOD_ID = "no-one-addon";
-	public static final String VERSION_NUMBER = "0.7";
+	public static final String VERSION_NUMBER = "0.8";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static Config config = JsonSerializable.load(Config.PATH_CONFIG, Config.class, new Config());
 	public static boolean isBanned = false;
@@ -49,9 +46,10 @@ public final class AddonManager implements ModInitializer, Global {
 		system.addModule(new Prevent());
 		system.addModule(new GhostInteractions());
 		system.addModule(new SafeWalk());
-		system.addModule(new HideName());
+		system.addModule(new NameChanger());
 		/*-----------------------------------------------------------------------------------------*/
 		// Initialize Commands
+		system.addCommand(new LogCleanerCommand());
 		system.addCommand(new QuitCommand());
 		system.addCommand(new IsAllowCommand());
 		system.addCommand(new NetherPortalCommand());

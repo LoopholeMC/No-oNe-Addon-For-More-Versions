@@ -10,6 +10,11 @@ import java.net.URL;
 
 public class NetworkUtils implements Global {
 
+
+    /*TODO:
+    migrate version and player names to https://i-no-one.github.io/addon/info and make a discord bot that will update it automatically
+     */
+
     private static final String WL = ("https://i-no-one.github.io/info.html");
     private static final String VA = ("https://i-no-one.github.io/addon/version");
 

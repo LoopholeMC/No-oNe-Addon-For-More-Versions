@@ -2,7 +2,6 @@ package net.i_no_am.clickcrystals.addon.command;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import io.github.itzispyder.clickcrystals.commands.Command;
-import io.github.itzispyder.clickcrystals.util.minecraft.ChatUtils;
 import net.minecraft.command.CommandSource;
 import com.mojang.brigadier.context.CommandContext;
 
@@ -18,7 +17,7 @@ public class FreeRAMCommand extends Command {
 
     private int execute(CommandContext<CommandSource> context) {
         System.gc();
-        ChatUtils.sendPrefixMessage("Request freeing RAM.");
+        info("Request freeing RAM.");
         return SINGLE_SUCCESS;
     }
 }

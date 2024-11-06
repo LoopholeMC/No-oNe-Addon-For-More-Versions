@@ -3,7 +3,7 @@ package net.i_no_am.clickcrystals.addon.mixin;
 import io.github.itzispyder.clickcrystals.Global;
 import io.github.itzispyder.clickcrystals.modules.Module;
 import io.github.itzispyder.clickcrystals.util.minecraft.PlayerUtils;
-import net.i_no_am.clickcrystals.addon.modules.HideName;
+import net.i_no_am.clickcrystals.addon.modules.NameChanger;
 import net.minecraft.text.TextVisitFactory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -19,11 +19,11 @@ public class MixinTextVisitFactory implements Global {
 
     @Unique
     private static String protectName(String string) {
-        if (!Module.get(HideName.class).isEnabled() || PlayerUtils.invalid())
+        if (!Module.get(NameChanger.class).isEnabled() || PlayerUtils.invalid())
             return string;
         var s = mc.getSession().getUsername();
         if (string.contains(s))
-            return string.replace(s, Module.get(HideName.class).fakeName.getVal());
+            return string.replace(s, Module.get(NameChanger.class).fakeName.getVal());
         return string;
     }
 
