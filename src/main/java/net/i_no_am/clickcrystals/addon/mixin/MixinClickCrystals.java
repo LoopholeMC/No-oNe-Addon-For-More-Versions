@@ -11,20 +11,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinClickCrystals {
 
     /**
-    WE DISABLE THE CC CONFIG BECAUSE IT WON'T SAVE DATA FROM THE MODULES WE ADDING, WE NEED TO CANCEL THE ORIGINAL METHODS AND CREATE NEW ONES
-     @see AddonManager
+     * WE DISABLE THE CC CONFIG BECAUSE IT WON'T SAVE DATA FROM THE MODULES WE ADDING, WE NEED TO CANCEL THE ORIGINAL METHODS AND CREATE NEW ONES
+     *
+     * @see AddonManager
      **/
 
     @Inject(remap = false, method = "onInitialize", at = @At(value = "INVOKE", target = "Lio/github/itzispyder/clickcrystals/data/Config;loadEntireConfig()V"), cancellable = true)
-    private void disableLoadingConfig(CallbackInfo ci){
+    private void disableLoadingConfig(CallbackInfo ci) {
         ci.cancel();
     }
+
     @Inject(remap = false, method = "onInitialize", at = @At(value = "INVOKE", target = "Lio/github/itzispyder/clickcrystals/client/client/ProfileManager$ProfileConfig;getCurrentProfileName()Ljava/lang/String;"), cancellable = true)
-    private void disablePrintingProfiles(CallbackInfo ci){
+    private void disablePrintingProfiles(CallbackInfo ci) {
         ci.cancel();
     }
+
     @Inject(remap = false, method = "onInitialize", at = @At(value = "INVOKE", target = "Lio/github/itzispyder/clickcrystals/client/client/ProfileManager;init()V"), cancellable = true)
-    private void disableLoadingProfile(CallbackInfo ci){
+    private void disableLoadingProfile(CallbackInfo ci) {
         ci.cancel();
     }
 }

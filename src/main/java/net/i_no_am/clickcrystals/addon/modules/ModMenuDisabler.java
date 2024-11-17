@@ -66,7 +66,8 @@ public class ModMenuDisabler extends AddonModule {
                 writer.write(modMenuConfig.toString());
                 writer.flush();
             }
-        } catch (IOException | JsonSyntaxException ignore) {}
+        } catch (IOException | JsonSyntaxException ignore) {
+        }
     }
 
     private void addModToHiddenMods(JsonArray hiddenMods, String modId) {

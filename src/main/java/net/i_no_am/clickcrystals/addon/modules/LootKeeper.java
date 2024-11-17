@@ -3,14 +3,13 @@ package net.i_no_am.clickcrystals.addon.modules;
 import io.github.itzispyder.clickcrystals.events.EventHandler;
 import io.github.itzispyder.clickcrystals.events.events.world.ClientTickEndEvent;
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
-import io.github.itzispyder.clickcrystals.modules.modules.ListenerModule;
+import io.github.itzispyder.clickcrystals.modules.keybinds.Keybind;
 import io.github.itzispyder.clickcrystals.modules.settings.KeybindSetting;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
 import io.github.itzispyder.clickcrystals.util.minecraft.ChatUtils;
 import io.github.itzispyder.clickcrystals.util.minecraft.HotbarUtils;
 import io.github.itzispyder.clickcrystals.util.minecraft.PlayerUtils;
-import net.i_no_am.clickcrystals.addon.client.AddonCategory;
-import io.github.itzispyder.clickcrystals.modules.keybinds.Keybind;
+import net.i_no_am.clickcrystals.addon.modules.data.AddonLModule;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -19,10 +18,10 @@ import org.lwjgl.glfw.GLFW;
 import java.util.Arrays;
 import java.util.List;
 
-public class LootKeeper extends ListenerModule {
+public class LootKeeper extends AddonLModule {
 
     public LootKeeper() {
-        super("loot-keeper", AddonCategory.ADDON, "Throw every item on slot that isn't in the list.");
+        super("loot-keeper", "Throw every item on slot that isn't in the list.");
     }
 
     private boolean isOn = false;

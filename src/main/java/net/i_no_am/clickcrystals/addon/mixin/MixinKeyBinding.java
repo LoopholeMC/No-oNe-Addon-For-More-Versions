@@ -17,9 +17,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(KeyBinding.class)
 public abstract class MixinKeyBinding implements Global {
 
-    @Shadow public abstract boolean equals(KeyBinding other);
+    @Shadow
+    public abstract boolean equals(KeyBinding other);
 
-    @Shadow public abstract boolean isPressed();
+    @Shadow
+    public abstract boolean isPressed();
 
     @Inject(method = "isPressed", at = @At("HEAD"), cancellable = true)
     private void onIsPressed(CallbackInfoReturnable<Boolean> cir) {

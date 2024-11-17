@@ -1,48 +1,59 @@
 package net.i_no_am.clickcrystals.addon.command;
 
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import io.github.itzispyder.clickcrystals.commands.Command;
 import net.minecraft.command.CommandSource;
 
-import java.io.*;
-import java.nio.file.*;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LogCleanerCommand extends Command {
+public class CleanCommand extends Command {
 
     private static final String LOGS_FOLDER = "logs";
 
-    public LogCleanerCommand() {
-        super("log", "Clean specific lines in logs", "log-cleaner");
+    public CleanCommand() {
+        super("clean", "Clean specific lines in chat or logs", "log-cleaner");
     }
 
     @Override
     public void build(LiteralArgumentBuilder<CommandSource> builder) {
-        builder.then(argument("line", StringArgumentType.string())
-                .then(argument("fileName", StringArgumentType.string()).suggests((context, suggestionsBuilder) -> {
-                    try {
-                        List<Path> logFiles = Files.list(Paths.get(LOGS_FOLDER))
-                                .filter(Files::isRegularFile)
-                                .filter(file -> !file.getFileName().toString().endsWith(".gz"))
-                                .toList();
-                        for (Path file : logFiles) {
-                            suggestionsBuilder.suggest(file.getFileName().toString());
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    return suggestionsBuilder.buildFuture();
-                }).executes(context -> {
-                    String lineToRemove = StringArgumentType.getString(context, "line");
-                    String fileName = StringArgumentType.getString(context, "fileName");
-                    return cleanLogFile(lineToRemove, fileName);
-                }))
+        builder.then(LiteralArgumentBuilder.<CommandSource>literal("chat")
                 .executes(context -> {
-                    String lineToRemove = StringArgumentType.getString(context, "line");
-                    return cleanAllLogFiles(lineToRemove);
-                }));
+                    mc.inGameHud.getChatHud().clear(true);
+                    return SINGLE_SUCCESS;
+                })
+        ).then(LiteralArgumentBuilder.<CommandSource>literal("logs")
+                .then(argument("content", StringArgumentType.string())
+                        .then(argument("fileName", StringArgumentType.string())
+                                .suggests((context, suggestionsBuilder) -> {
+                                    try {
+                                        List<Path> logFiles = Files.list(Paths.get(LOGS_FOLDER))
+                                                .filter(Files::isRegularFile)
+                                                .filter(file -> !file.getFileName().toString().endsWith(".gz"))
+                                                .toList();
+                                        for (Path file : logFiles) {
+                                            suggestionsBuilder.suggest(file.getFileName().toString());
+                                        }
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    return suggestionsBuilder.buildFuture();
+                                }).executes(context -> {
+                                    String content = StringArgumentType.getString(context, "content");
+                                    String fileName = StringArgumentType.getString(context, "fileName");
+                                    return cleanLogFile(content, fileName);
+                                })
+                        ).executes(context -> {
+                            String content = StringArgumentType.getString(context, "content");
+                            return cleanAllLogFiles(content);
+                        })
+                )
+        );
     }
 
     private int cleanLogFile(String lineToRemove, String fileName) {

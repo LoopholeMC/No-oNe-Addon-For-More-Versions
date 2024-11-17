@@ -1,9 +1,9 @@
 package net.i_no_am.clickcrystals.addon.command;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.context.CommandContext;
 import io.github.itzispyder.clickcrystals.commands.Command;
 import net.minecraft.command.CommandSource;
-import com.mojang.brigadier.context.CommandContext;
 
 public class FreeRAMCommand extends Command {
     public FreeRAMCommand() {

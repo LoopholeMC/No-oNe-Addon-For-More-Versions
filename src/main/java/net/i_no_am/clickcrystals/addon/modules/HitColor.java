@@ -7,9 +7,10 @@ import net.i_no_am.clickcrystals.addon.modules.data.AddonModule;
 import java.awt.*;
 
 public class HitColor extends AddonModule {
-    public HitColor(){
-    super("hit-color","Change entity hit color.");
+    public HitColor() {
+        super("hit-color", "Change entity hit color.");
     }
+
     private final SettingSection scGeneral = getGeneralSection();
     public final ModuleSetting<Double> green = scGeneral.add(createDoubleSetting()
             .name("Green")
@@ -49,6 +50,6 @@ public class HitColor extends AddonModule {
     );
 
     public Color getColor() {
-        return new Color(red.getVal().intValue(),green.getVal().intValue(),blue.getVal().intValue(),alpha.getVal().intValue());
+        return new Color(red.getVal().intValue(), green.getVal().intValue(), blue.getVal().intValue(), alpha.getVal().intValue());
     }
 }

@@ -1,35 +1,51 @@
 package net.i_no_am.clickcrystals.addon.utils;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import io.github.itzispyder.clickcrystals.Global;
 import net.i_no_am.clickcrystals.addon.AddonManager;
-import net.minecraft.client.MinecraftClient;
 
-import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 
 public class NetworkUtils implements Global {
 
-
-    /*TODO:
-    migrate version and player names to https://i-no-one.github.io/addon/info and make a discord bot that will update it automatically
-     */
-
-    private static final String WL = ("https://i-no-one.github.io/info.html");
-    private static final String VA = ("https://i-no-one.github.io/addon/version");
+    private static final String INFO_URL = "http://api.tutla.net/cc/reg.json";
 
     public static void isBan() {
         try {
-            if (!new BufferedReader(new InputStreamReader(new URL(WL).openStream())).readLine().contains(MinecraftClient.getInstance().getGameProfile().getName()))
-                AddonManager.isBanned = true;
+            JsonArray hwidList = readJson(INFO_URL).getAsJsonArray("HWID");
+
+            for (JsonElement hwid : hwidList) {
+                if (hwid.getAsJsonObject().get("name").getAsString().equals("i_no_am"))
+                    AddonManager.isNoOne = true;
+                if (hwid.getAsJsonObject().get("hwid").getAsString().equals(OsUtils.getHWID())) {
+                    AddonManager.isBanned = false;
+                    return;
+                }
+            }
         } catch (Exception ignored) {
         }
     }
 
     public static boolean isUpdated() {
         try {
-            return (new BufferedReader(new InputStreamReader(new URL(VA).openStream())).readLine().equals(AddonManager.VERSION_NUMBER));
-        } catch (Exception ignored) {}
+            JsonArray versionArray = readJson(INFO_URL).getAsJsonArray("version");
+            if (!versionArray.isEmpty()) {
+                String latestVersion = versionArray.get(0).getAsString();
+                return latestVersion.equals(AddonManager.VERSION);
+            }
+        } catch (Exception ignored) {
+        }
         return false;
+    }
+
+    public static JsonObject readJson(String site) throws Exception {
+        URL url = new URL(site);
+        try (InputStreamReader reader = new InputStreamReader(url.openStream())) {
+            return JsonParser.parseReader(reader).getAsJsonObject();
+        }
     }
 }

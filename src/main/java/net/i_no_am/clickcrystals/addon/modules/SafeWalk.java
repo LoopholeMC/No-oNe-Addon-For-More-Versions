@@ -5,8 +5,8 @@ import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
 import net.i_no_am.clickcrystals.addon.modules.data.AddonModule;
 
 public class SafeWalk extends AddonModule {
-    public SafeWalk(){
-        super("safe-walk","crouch when the player in the edge of a block");
+    public SafeWalk() {
+        super("safe-walk", "crouch when the player in the edge of a block");
     }
 
     private final SettingSection scGeneral = getGeneralSection();

@@ -2,9 +2,9 @@ package net.i_no_am.clickcrystals.addon.modules;
 
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
+import io.github.itzispyder.clickcrystals.util.minecraft.HotbarUtils;
 import net.i_no_am.clickcrystals.addon.modules.data.AddonModule;
 import net.i_no_am.clickcrystals.addon.utils.BlockUtils;
-import io.github.itzispyder.clickcrystals.util.minecraft.HotbarUtils;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Items;
 import net.minecraft.util.ActionResult;
@@ -62,8 +62,8 @@ public class Prevent extends AddonModule {
                 && BlockUtils.isLookingAt(Blocks.GLOWSTONE)) {
             return ActionResult.FAIL;
         } else if (HotbarUtils.isHoldingEitherHand(Items.GLOWSTONE)
-        && disableGlowstoneOnGlowstone.getVal()
-        && BlockUtils.isLookingAt(Blocks.GLOWSTONE)) {
+                && disableGlowstoneOnGlowstone.getVal()
+                && BlockUtils.isLookingAt(Blocks.GLOWSTONE)) {
             return ActionResult.FAIL;
         }
         return ActionResult.PASS;

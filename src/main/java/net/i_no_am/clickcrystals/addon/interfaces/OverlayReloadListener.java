@@ -5,6 +5,7 @@ import java.util.List;
 
 public interface OverlayReloadListener {
     List<OverlayReloadListener> listeners = new ArrayList<>();
+
     void no_oNe_Addon$onOverlayReload();
 
     static void register(OverlayReloadListener listener) {
