@@ -9,7 +9,6 @@ import net.i_no_am.clickcrystals.addon.client.AddonCapeManager;
 import net.i_no_am.clickcrystals.addon.listener.AddonListener;
 import net.i_no_am.clickcrystals.addon.command.*;
 import net.i_no_am.clickcrystals.addon.modules.*;
-import net.i_no_am.clickcrystals.addon.utils.NetworkUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

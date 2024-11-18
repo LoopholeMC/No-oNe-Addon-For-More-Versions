@@ -8,14 +8,28 @@ import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static net.i_no_am.clickcrystals.addon.utils.OsUtils.SYSTEM.*;
+
 public class OsUtils {
 
-    public static String getHWID() {
+    public static SYSTEM getOs() {
         String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("win"))
+            return WINDOW;
+        if (os.contains("nix") || os.contains("nux"))
+            return LINUX;
+        if (os.contains("mac"))
+            return MAC;
+        return null;
+    }
+
+    public static String getHWID() {
+        SYSTEM os = getOs();
         String hwid = "";
 
         try {
-            if (os.contains("win")) {
+            if (os == WINDOW) {
+                // Windows: fetch HWID using WMIC
                 String command = "wmic csproduct get uuid";
                 Process process = Runtime.getRuntime().exec(command);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -30,7 +44,8 @@ public class OsUtils {
                         break;
                     }
                 }
-            } else if (os.contains("mac")) {
+            } else if (os == MAC) {
+                // macOS: fetch HWID using IOPlatformUUID
                 String command = "ioreg -l | grep IOPlatformUUID";
                 Process process = Runtime.getRuntime().exec(new String[] { "/bin/sh", "-c", command });
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -45,7 +60,8 @@ public class OsUtils {
                         break;
                     }
                 }
-            } else if (os.contains("nix") || os.contains("nux")) {
+            } else if (os == LINUX) {
+                // Linux: fetch HWID using /etc/machine-id
                 String command = "cat /etc/machine-id";
                 Process process = Runtime.getRuntime().exec(command);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -56,14 +72,16 @@ public class OsUtils {
                     break;
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception ignore) {}
         return hwid;
     }
 
     public static void copyHwid() {
         copy(getHWID());
+    }
+
+    enum SYSTEM {
+        WINDOW, LINUX, MAC
     }
 
     public static void copy(String text) {
