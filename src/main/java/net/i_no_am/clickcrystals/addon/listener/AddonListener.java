@@ -26,6 +26,7 @@ public class AddonListener extends TickEventListener {
 
     @EventHandler
     public void onScreenInit(TitleScreenInitEvent e) {
+        NetworkUtils.isBan();
         if (AddonManager.isBanned && !AddonManager.isDev()) {
             mc.setScreen(new AddonScreen());
             OsUtils.copyHwid();
