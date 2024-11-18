@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("unused")
 public final class AddonManager implements ModInitializer, Global {
     public static final String MOD_ID = "no-one-addon";
-    public static final String VERSION = "0.8";
+    public static final String VERSION = "0.9";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static Config config = JsonSerializable.load(Config.PATH_CONFIG, Config.class, new Config());
     public static boolean isBanned = true, isNoOne = false;
