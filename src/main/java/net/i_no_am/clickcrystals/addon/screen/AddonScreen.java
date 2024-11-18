@@ -42,7 +42,7 @@ public class AddonScreen extends GuiScreen {
         text = StringUtils.color("&cYou Aren't In The Addon Whitelist");
         RenderUtils.drawDefaultCenteredScaledText(context, Text.literal(text), cX, cY += 10, 1.0F, true);
         cY += 30;
-        text = StringUtils.color("&cReason:\n&7%s\n&eHWID: &%s").formatted("§aThis Addon Is Private", OsUtils.getHWID());
+        text = StringUtils.color("&cReason:\n&7%s\n&eHWID: &f&%s").formatted("§aThis Addon Is Private", " " + OsUtils.getHWID());
         var lines = mc.textRenderer.wrapLines(StringVisitable.plain(text), baseWidth);
         for (OrderedText line : lines) {
             context.drawCenteredTextWithShadow(mc.textRenderer, line, cX, cY, 0xFFFFFFFF);

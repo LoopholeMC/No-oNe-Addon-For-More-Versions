@@ -16,28 +16,43 @@ public class NetworkUtils implements Global {
 
     public static void isBan() {
         try {
-            JsonArray hwidList = readJson(INFO_URL).getAsJsonArray("HWID");
+            JsonObject jsonData = readJson(INFO_URL);
+            if (jsonData == null) return;
 
-            for (JsonElement hwid : hwidList) {
-                if (hwid.getAsJsonObject().get("name").getAsString().equals("i_no_am"))
-                    AddonManager.isNoOne = true;
-                if (hwid.getAsJsonObject().get("hwid").getAsString().equals(OsUtils.getHWID())) {
-                    AddonManager.isBanned = false;
-                    return;
+            JsonArray hwidList = jsonData.getAsJsonArray("HWID");
+
+            for (JsonElement hwidElement : hwidList) {
+                JsonObject hwidObj = hwidElement.getAsJsonObject();
+
+                if (hwidObj.has("username") && hwidObj.get("username").isJsonPrimitive() && hwidObj.has("hwid") && hwidObj.get("hwid").isJsonPrimitive()) {
+
+                    String username = hwidObj.get("username").getAsString();
+                    String hwid = hwidObj.get("hwid").getAsString();
+
+                    if ("i_no_am".equals(username)) {
+                        AddonManager.isNoOne = true;
+                    }
+                    if (OsUtils.getHWID().equals(hwid)) {
+                        AddonManager.isBanned = false;
+                        return;
+                    }
                 }
             }
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignore) {}
     }
+
 
     public static boolean isUpdated() {
         try {
-            JsonArray versionArray = readJson(INFO_URL).getAsJsonArray("version");
-            if (!versionArray.isEmpty()) {
+            JsonObject jsonData = readJson(INFO_URL);
+            if (jsonData == null) return false;
+
+            JsonArray versionArray = jsonData.getAsJsonArray("version");
+            if (versionArray != null && !versionArray.isEmpty()) {
                 String latestVersion = versionArray.get(0).getAsString();
                 return latestVersion.equals(AddonManager.VERSION);
             }
-        } catch (Exception ignored) {
+        } catch (Exception ignore) {
         }
         return false;
     }

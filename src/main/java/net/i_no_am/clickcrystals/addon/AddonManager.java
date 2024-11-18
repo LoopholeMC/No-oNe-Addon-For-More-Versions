@@ -6,11 +6,8 @@ import io.github.itzispyder.clickcrystals.data.JsonSerializable;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.i_no_am.clickcrystals.addon.client.AddonCapeManager;
-import net.i_no_am.clickcrystals.addon.command.FreeRAMCommand;
-import net.i_no_am.clickcrystals.addon.command.CleanCommand;
-import net.i_no_am.clickcrystals.addon.command.NetherPortalCommand;
-import net.i_no_am.clickcrystals.addon.command.QuitCommand;
 import net.i_no_am.clickcrystals.addon.listener.AddonListener;
+import net.i_no_am.clickcrystals.addon.command.*;
 import net.i_no_am.clickcrystals.addon.modules.*;
 import net.i_no_am.clickcrystals.addon.utils.NetworkUtils;
 import org.slf4j.Logger;
@@ -36,10 +33,10 @@ public final class AddonManager implements ModInitializer, Global {
 
     @Override
     public void onInitialize() {
-        NetworkUtils.isBan();
         /*-----------------------------------------------------------------------------------------*/
         // Initialize Listeners
         system.addListener(new AddonListener());
+        /*-----------------------------------------------------------------------------------------*/
         // Initialize Modules
         system.addModule(new DiscordScreenDisabler());
         system.addModule(new InfiniteChat());
