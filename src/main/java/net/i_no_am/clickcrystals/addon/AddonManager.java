@@ -4,13 +4,12 @@ import io.github.itzispyder.clickcrystals.Global;
 import io.github.itzispyder.clickcrystals.data.Config;
 import io.github.itzispyder.clickcrystals.data.JsonSerializable;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.loader.api.FabricLoader;
-import net.i_no_am.clickcrystals.addon.client.AddonCapeManager;
+import net.i_no_am.clickcrystals.addon.command.CleanCommand;
+import net.i_no_am.clickcrystals.addon.command.FreeRAMCommand;
+import net.i_no_am.clickcrystals.addon.command.NetherPortalCommand;
+import net.i_no_am.clickcrystals.addon.command.QuitCommand;
 import net.i_no_am.clickcrystals.addon.listener.AddonListener;
-import net.i_no_am.clickcrystals.addon.command.*;
 import net.i_no_am.clickcrystals.addon.modules.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /***
  * TODO: UPDATE VERSION_NUMBER to the latest version
@@ -19,12 +18,9 @@ import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("unused")
 public final class AddonManager implements ModInitializer, Global {
-    public static final String MOD_ID = "no-one-addon";
-    public static final String VERSION = "0.9";
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static Config config = JsonSerializable.load(Config.PATH_CONFIG, Config.class, new Config());
-    public static boolean isBanned = true, isNoOne = false;
-    public static AddonCapeManager cape = new AddonCapeManager();
+    public static boolean isBanned = true;
+
     /**
      * @author I-No-oNe
      * Be Aware That This Mod Is Experimental
@@ -67,9 +63,5 @@ public final class AddonManager implements ModInitializer, Global {
         system.printf("<- Profile set '%s'", system.profiles.profileConfig.getCurrentProfileName());
         system.printf("<- allowed to use the addon: %s", !isBanned);
         system.printf("Finish Loading No one's Addon!");
-    }
-
-    public static boolean isDev() {
-        return FabricLoader.getInstance().isDevelopmentEnvironment() && isNoOne;
     }
 }

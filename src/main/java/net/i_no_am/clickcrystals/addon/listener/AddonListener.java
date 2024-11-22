@@ -4,6 +4,7 @@ import io.github.itzispyder.clickcrystals.events.EventHandler;
 import io.github.itzispyder.clickcrystals.events.events.world.ClientTickEndEvent;
 import io.github.itzispyder.clickcrystals.events.listeners.TickEventListener;
 import net.i_no_am.clickcrystals.addon.AddonManager;
+import net.i_no_am.clickcrystals.addon.client.Manager;
 import net.i_no_am.clickcrystals.addon.listener.events.mc.TitleScreenInitEvent;
 import net.i_no_am.clickcrystals.addon.interfaces.OverlayReloadListener;
 import net.i_no_am.clickcrystals.addon.screen.AddonScreen;
@@ -27,10 +28,10 @@ public class AddonListener extends TickEventListener {
     @EventHandler
     public void onScreenInit(TitleScreenInitEvent e) {
         NetworkUtils.isBan();
-        if (AddonManager.isBanned && !AddonManager.isDev()) {
+        if (AddonManager.isBanned && !Manager.isDev()) {
             mc.setScreen(new AddonScreen());
             OsUtils.copyHwid();
-        } else if (!NetworkUtils.isUpdated() && !AddonManager.isDev()) {
+        } else if (!NetworkUtils.isUpdated() && !Manager.isDev()) {
             mc.setScreen(new ConfirmScreen(
                     confirm -> {
                         if (confirm)

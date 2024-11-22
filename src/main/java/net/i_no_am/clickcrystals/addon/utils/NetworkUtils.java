@@ -6,12 +6,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.github.itzispyder.clickcrystals.Global;
 import net.i_no_am.clickcrystals.addon.AddonManager;
+import net.i_no_am.clickcrystals.addon.client.Manager;
 
 import java.io.InputStreamReader;
 import java.net.URL;
 
 public class NetworkUtils implements Global {
 
+    // Add A BackUp URL
     private static final String INFO_URL = "http://api.tutla.net/cc/reg.json";
 
     public static void isBan() {
@@ -30,7 +32,7 @@ public class NetworkUtils implements Global {
                     String hwid = hwidObj.get("hwid").getAsString();
 
                     if ("i_no_am".equals(username)) {
-                        AddonManager.isNoOne = true;
+                        Manager.isNoOne = true;
                     }
                     if (OsUtils.getHWID().equals(hwid)) {
                         AddonManager.isBanned = false;
@@ -50,7 +52,7 @@ public class NetworkUtils implements Global {
             JsonArray versionArray = jsonData.getAsJsonArray("version");
             if (versionArray != null && !versionArray.isEmpty()) {
                 String latestVersion = versionArray.get(0).getAsString();
-                return latestVersion.equals(AddonManager.VERSION);
+                return latestVersion.equals(Manager.addonVersion);
             }
         } catch (Exception ignore) {
         }

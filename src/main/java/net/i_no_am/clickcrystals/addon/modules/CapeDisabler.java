@@ -4,7 +4,7 @@ import io.github.itzispyder.clickcrystals.events.EventHandler;
 import io.github.itzispyder.clickcrystals.events.events.world.ClientTickEndEvent;
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
-import net.i_no_am.clickcrystals.addon.AddonManager;
+import net.i_no_am.clickcrystals.addon.client.Manager;
 import net.i_no_am.clickcrystals.addon.listener.events.cc.PlayerJoinEvent;
 import net.i_no_am.clickcrystals.addon.modules.data.AddonLModule;
 
@@ -29,8 +29,8 @@ public class CapeDisabler extends AddonLModule {
     @EventHandler
     private void onTick(ClientTickEndEvent e){
         if (isEnabled() && disableClickCrystalCapes.getVal()){
-            AddonManager.cape.getCapeTexture(null);
-            AddonManager.cape.reloadTextures();
+            Manager.cape.getCapeTexture(null);
+            Manager.cape.reloadTextures();
         }
     }
     @EventHandler
