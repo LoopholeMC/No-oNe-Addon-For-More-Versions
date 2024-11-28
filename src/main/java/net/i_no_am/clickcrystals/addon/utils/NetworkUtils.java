@@ -9,16 +9,40 @@ import net.i_no_am.clickcrystals.addon.AddonManager;
 import net.i_no_am.clickcrystals.addon.client.Manager;
 
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class NetworkUtils implements Global {
 
-    // Add A BackUp URL
-    private static final String INFO_URL = "http://api.tutla.net/cc/reg.json";
+    private static final String BACKUP = "https://i-no-one.github.io/addon/info";
+    private static final String API = "http://api.tutla.net/cc/reg.json";
+
+    public static String AddonUrl() {
+        try {
+            if (isUrlWorking(API)) return API;
+            if (isUrlWorking(BACKUP)) return BACKUP;
+        } catch (Exception ignore) {}
+        return null;
+    }
+
+    public static boolean isUrlWorking(String url) {
+        try {
+            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(3000);
+            connection.setReadTimeout(3000);
+            return connection.getResponseCode() == 200;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public static void isBan() {
         try {
-            JsonObject jsonData = readJson(INFO_URL);
+            String url = AddonUrl();
+            if (url == null) return;
+
+            JsonObject jsonData = readJson(url);
             if (jsonData == null) return;
 
             JsonArray hwidList = jsonData.getAsJsonArray("HWID");
@@ -43,10 +67,12 @@ public class NetworkUtils implements Global {
         } catch (Exception ignore) {}
     }
 
-
     public static boolean isUpdated() {
         try {
-            JsonObject jsonData = readJson(INFO_URL);
+            String url = AddonUrl();
+            if (url == null) return false;
+
+            JsonObject jsonData = readJson(url);
             if (jsonData == null) return false;
 
             JsonArray versionArray = jsonData.getAsJsonArray("version");
@@ -54,8 +80,7 @@ public class NetworkUtils implements Global {
                 String latestVersion = versionArray.get(0).getAsString();
                 return latestVersion.equals(Manager.addonVersion);
             }
-        } catch (Exception ignore) {
-        }
+        } catch (Exception ignore) {}
         return false;
     }
 

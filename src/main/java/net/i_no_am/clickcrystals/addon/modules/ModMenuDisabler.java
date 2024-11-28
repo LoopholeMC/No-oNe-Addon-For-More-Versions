@@ -8,6 +8,7 @@ import com.google.gson.JsonSyntaxException;
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
 import net.fabricmc.loader.api.FabricLoader;
+import net.i_no_am.clickcrystals.addon.client.Manager;
 import net.i_no_am.clickcrystals.addon.modules.data.AddonModule;
 
 import java.io.File;
@@ -26,7 +27,7 @@ public class ModMenuDisabler extends AddonModule {
     public final ModuleSetting<String> modIdNames = scGeneral.add(createStringSetting()
             .name("mods-id's")
             .description("Comma-separated list of mod IDs that you want to hide.")
-            .def(MOD_ID + "," + modId)
+            .def(Manager.MOD_ID + "," + modId)
             .build()
     );
 

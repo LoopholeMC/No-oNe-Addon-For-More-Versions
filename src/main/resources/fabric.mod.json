@@ -15,7 +15,7 @@
 	"icon": "assets/no-one-addon/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"main": [
+		"client": [
 			"net.i_no_am.clickcrystals.addon.AddonManager"
 		]
 	},
@@ -24,7 +24,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.16.3",
-		"minecraft": ">=1.20.6",
+		"minecraft": ">=1.21",
 		"java": ">=21",
 		"fabric-api": "*"
 	},

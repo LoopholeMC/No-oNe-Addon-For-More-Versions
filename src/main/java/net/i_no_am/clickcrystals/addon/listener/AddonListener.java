@@ -5,8 +5,8 @@ import io.github.itzispyder.clickcrystals.events.events.world.ClientTickEndEvent
 import io.github.itzispyder.clickcrystals.events.listeners.TickEventListener;
 import net.i_no_am.clickcrystals.addon.AddonManager;
 import net.i_no_am.clickcrystals.addon.client.Manager;
-import net.i_no_am.clickcrystals.addon.listener.events.mc.TitleScreenInitEvent;
 import net.i_no_am.clickcrystals.addon.interfaces.OverlayReloadListener;
+import net.i_no_am.clickcrystals.addon.listener.events.mc.TitleScreenInitEvent;
 import net.i_no_am.clickcrystals.addon.screen.AddonScreen;
 import net.i_no_am.clickcrystals.addon.utils.NetworkUtils;
 import net.i_no_am.clickcrystals.addon.utils.OsUtils;
@@ -29,16 +29,16 @@ public class AddonListener extends TickEventListener {
     public void onScreenInit(TitleScreenInitEvent e) {
         NetworkUtils.isBan();
         if (AddonManager.isBanned && !Manager.isDev()) {
-            mc.setScreen(new AddonScreen());
+            mc.execute(() -> mc.setScreen(new AddonScreen()));
             OsUtils.copyHwid();
         } else if (!NetworkUtils.isUpdated() && !Manager.isDev()) {
-            mc.setScreen(new ConfirmScreen(
+            mc.execute(() -> mc.setScreen(new ConfirmScreen(
                     confirm -> {
                         if (confirm)
                             Util.getOperatingSystem().open(URI.create("https://discord.com/channels/1256214501129191504/1256224383639224331"));
                         else mc.stop();
                     },
-                    Text.of(Formatting.DARK_RED + "You are using an outdated version of " + Formatting.GREEN + "No one's Addon"), Text.of("Please download the latest version from " + Formatting.DARK_PURPLE + "Discord"), Text.of("Download"), Text.of("Quit Game")));
+                    Text.of(Formatting.DARK_RED + "You are using an outdated version of " + Formatting.GREEN + "No one's Addon"), Text.of("Please download the latest version from " + Formatting.DARK_PURPLE + "Discord"), Text.of("Download"), Text.of("Quit Game"))));
         }
     }
 }

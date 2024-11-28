@@ -24,18 +24,27 @@ public class AntiOffHand extends AddonLModule {
             .def("totem,crystal,pearl")
             .build()
     );
+    public final ModuleSetting<Boolean> disableMainHandSwap = scGeneral.add(createBoolSetting()
+            .name("disable-main-hand-swap")
+            .description("If holding the item in the list, swapping from main to off hand won't work")
+            .def(false)
+            .build()
+    );
 
     @EventHandler
     private void onKeyPress(KeyPressEvent e) {
         if (e.getKeycode() == mc.options.swapHandsKey.getDefaultKey().getCode()) {
-            if (isHoldingRestrictedItem()) {
-                e.setCancelled(true);
-            }
+            if (isHoldingRestrictedItem(Hand.OFF_HAND))
+                e.cancel();
+        }
+        if (e.getKeycode() == mc.options.swapHandsKey.getDefaultKey().getCode()) {
+            if (isHoldingRestrictedItem(Hand.MAIN_HAND) && disableMainHandSwap.getVal())
+                e.cancel();
         }
     }
 
-    private boolean isHoldingRestrictedItem() {
+    private boolean isHoldingRestrictedItem(Hand hand) {
         List<String> restrictedItems = Arrays.asList(itemName.getVal().split(","));
-        return restrictedItems.stream().anyMatch(item -> HotbarUtils.nameContains(item, Hand.OFF_HAND));
+        return restrictedItems.stream().anyMatch(item -> HotbarUtils.nameContains(item, hand));
     }
 }

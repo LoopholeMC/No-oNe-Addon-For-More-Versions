@@ -3,31 +3,23 @@ package net.i_no_am.clickcrystals.addon;
 import io.github.itzispyder.clickcrystals.Global;
 import io.github.itzispyder.clickcrystals.data.Config;
 import io.github.itzispyder.clickcrystals.data.JsonSerializable;
-import net.fabricmc.api.ModInitializer;
-import net.i_no_am.clickcrystals.addon.command.CleanCommand;
-import net.i_no_am.clickcrystals.addon.command.FreeRAMCommand;
-import net.i_no_am.clickcrystals.addon.command.NetherPortalCommand;
-import net.i_no_am.clickcrystals.addon.command.QuitCommand;
+import net.fabricmc.api.ClientModInitializer;
+import net.i_no_am.clickcrystals.addon.command.*;
 import net.i_no_am.clickcrystals.addon.listener.AddonListener;
 import net.i_no_am.clickcrystals.addon.modules.*;
 
-/***
- * TODO: UPDATE VERSION_NUMBER to the latest version
- * TODO: UPDATE SITE (<a href="https://github.com/I-No-oNe/i-no-one.github.io/edit/main/addon/version.html">...</a>)
- */
-
 @SuppressWarnings("unused")
-public final class AddonManager implements ModInitializer, Global {
+public final class AddonManager implements ClientModInitializer, Global {
     public static Config config = JsonSerializable.load(Config.PATH_CONFIG, Config.class, new Config());
     public static boolean isBanned = true;
 
     /**
      * @author I-No-oNe
-     * Be Aware That This Mod Is Experimental
+     * WOW, this is actually working (;
      **/
 
     @Override
-    public void onInitialize() {
+    public void onInitializeClient() {
         /*-----------------------------------------------------------------------------------------*/
         // Initialize Listeners
         system.addListener(new AddonListener());
@@ -49,6 +41,8 @@ public final class AddonManager implements ModInitializer, Global {
         system.addModule(new NameChanger());
         /*-----------------------------------------------------------------------------------------*/
         // Initialize Commands
+        system.addCommand(new HwidCommand());
+        system.addCommand(new AddonInfoCommand());
         system.addCommand(new CleanCommand());
         system.addCommand(new QuitCommand());
         system.addCommand(new NetherPortalCommand());
