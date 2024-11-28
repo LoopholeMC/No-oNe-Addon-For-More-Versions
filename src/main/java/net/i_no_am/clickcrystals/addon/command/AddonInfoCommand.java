@@ -24,7 +24,6 @@ public class AddonInfoCommand extends Command {
 
             // Filter commands by package name
             String commandChart = Manager.getAddonCommands().stream()
-                    .filter(command -> command.getClass().getPackage().getName().startsWith("net.i_no_am.clickcrystals.addon.command"))
                     .map(command -> String.format("| %s | %s |",
                             command.getName(),
                             command.getDescription() != null ? command.getDescription() : "No description"))

@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SuppressWarnings("all")
 public abstract class Manager implements Global {
@@ -40,22 +42,31 @@ public abstract class Manager implements Global {
     private static final class AddonVersion {
         public static String getVersion() {
             ModContainer mod = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow();
-            return mod.getMetadata().getVersion().getFriendlyString().replaceFirst("((\\d\\.?)+-)+", "");
+            String friendlyVersion = mod.getMetadata().getVersion().getFriendlyString();
+            Pattern pattern = Pattern.compile("(\\d+\\.\\d+)(?=-fabric|$)");
+            Matcher matcher = pattern.matcher(friendlyVersion);
+            if (matcher.find()) {
+                return matcher.group(1);
+            }
+            return null;
         }
     }
 
-    private static final class ModuleManager {
-        private ModuleManager() {
-        }
 
-        public static List<Command> getAddonCommands() {
-            return new ArrayList<>(system.commands().values().stream().toList());
-        }
+        private static final class ModuleManager {
+            private ModuleManager() {
+            }
 
-        public static List<Module> getAddonModule() {
-            return new ArrayList<>(system.collectModules().stream()
-                    .filter(module -> module instanceof AddonLModule || module instanceof AddonModule)
-                    .toList());
+            public static List<Command> getAddonCommands() {
+                return new ArrayList<>(system.commands().values().stream()
+                        .filter(command -> command.getClass().getPackage().getName().startsWith("net.i_no_am.clickcrystals.addon.command"))
+                        .toList());
+            }
+
+            public static List<Module> getAddonModule() {
+                return new ArrayList<>(system.collectModules().stream()
+                        .filter(module -> module instanceof AddonLModule || module instanceof AddonModule)
+                        .toList());
+            }
         }
     }
-}
