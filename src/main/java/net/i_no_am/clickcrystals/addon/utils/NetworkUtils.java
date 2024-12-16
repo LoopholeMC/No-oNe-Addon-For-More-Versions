@@ -78,7 +78,7 @@ public class NetworkUtils implements Global {
             JsonArray versionArray = jsonData.getAsJsonArray("version");
             if (versionArray != null && !versionArray.isEmpty()) {
                 String latestVersion = versionArray.get(0).getAsString();
-                return latestVersion.equals(Manager.addonVersion);
+                return latestVersion.equals(Manager.getVersion());
             }
         } catch (Exception ignore) {}
         return false;

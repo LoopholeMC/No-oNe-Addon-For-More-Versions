@@ -87,6 +87,7 @@ public class OsUtils {
     public static void copy(String text) {
         StringSelection selection = new StringSelection(text);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        if (clipboard == null) return;
         clipboard.setContents(selection, null);
     }
 }

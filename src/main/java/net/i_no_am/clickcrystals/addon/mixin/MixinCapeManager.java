@@ -15,21 +15,21 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(CapeManager.class)
 public class MixinCapeManager implements Global {
 
-    @Inject(remap = false, method = "reloadTextures", at = @At(value = "INVOKE", target = "Ljava/util/concurrent/CompletableFuture;runAsync(Ljava/lang/Runnable;)Ljava/util/concurrent/CompletableFuture;"), cancellable = true)
-    private void onReload(CallbackInfo ci) {
-        CapeDisabler c = Module.get(CapeDisabler.class);
-        if (c == null) return;
-        if (c.isEnabled() && c.disableClickCrystalCapes.getVal())
-            ci.cancel();
-    }
-
-    @Inject(remap = false, method = "getCapeTexture", at = @At("RETURN"), cancellable = true)
-    private void onGetCapeTexture(GameProfile profile, CallbackInfoReturnable<Identifier> cir) {
-        CapeDisabler c = Module.get(CapeDisabler.class);
-        if (c == null) return;
-        if (c.isEnabled() && c.disableClickCrystalCapes.getVal()) {
-            cir.cancel();
-            cir.setReturnValue(null);
-        }
-    }
+//    @Inject(remap = false, method = "reloadTextures", at = @At(value = "INVOKE", target = "Ljava/util/concurrent/CompletableFuture;runAsync(Ljava/lang/Runnable;)Ljava/util/concurrent/CompletableFuture;"), cancellable = true)
+//    private void onReload(CallbackInfo ci) {
+//        CapeDisabler c = Module.get(CapeDisabler.class);
+//        if (c == null) return;
+//        if (c.isEnabled() && c.disableClickCrystalCapes.getVal())
+//            ci.cancel();
+//    }
+//
+//    @Inject(remap = false, method = "getCapeTexture", at = @At("RETURN"), cancellable = true)
+//    private void onGetCapeTexture(GameProfile profile, CallbackInfoReturnable<Identifier> cir) {
+//        CapeDisabler c = Module.get(CapeDisabler.class);
+//        if (c == null) return;
+//        if (c.isEnabled() && c.disableClickCrystalCapes.getVal()) {
+//            cir.cancel();
+//            cir.setReturnValue(null);
+//        }
+//    }
 }

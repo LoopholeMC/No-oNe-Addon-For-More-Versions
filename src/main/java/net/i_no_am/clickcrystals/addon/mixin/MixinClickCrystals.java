@@ -12,7 +12,6 @@ public class MixinClickCrystals {
 
     /**
      * WE DISABLE THE CC CONFIG BECAUSE IT WON'T SAVE DATA FROM THE MODULES WE ADDING, WE NEED TO CANCEL THE ORIGINAL METHODS AND CREATE NEW ONES
-     *
      * @see AddonManager
      **/
 

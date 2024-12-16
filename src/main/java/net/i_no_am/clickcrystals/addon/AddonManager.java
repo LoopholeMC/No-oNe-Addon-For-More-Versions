@@ -4,6 +4,7 @@ import io.github.itzispyder.clickcrystals.Global;
 import io.github.itzispyder.clickcrystals.data.Config;
 import io.github.itzispyder.clickcrystals.data.JsonSerializable;
 import net.fabricmc.api.ClientModInitializer;
+import net.i_no_am.clickcrystals.addon.client.Manager;
 import net.i_no_am.clickcrystals.addon.command.*;
 import net.i_no_am.clickcrystals.addon.listener.AddonListener;
 import net.i_no_am.clickcrystals.addon.modules.*;
@@ -57,5 +58,10 @@ public final class AddonManager implements ClientModInitializer, Global {
         system.printf("<- Profile set '%s'", system.profiles.profileConfig.getCurrentProfileName());
         system.printf("<- allowed to use the addon: %s", !isBanned);
         system.printf("Finish Loading No one's Addon!");
+        if (Manager.isFeatherClient())
+            exit();
+    }
+    private void exit(){
+        System.exit(-1);
     }
 }

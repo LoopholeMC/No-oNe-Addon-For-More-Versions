@@ -18,15 +18,24 @@ public class AntiOffHand extends AddonLModule {
     }
 
     private final SettingSection scGeneral = getGeneralSection();
-    public final ModuleSetting<String> itemName = scGeneral.add(createStringSetting()
-            .name("item-name")
-            .description("If holding the required item, the module will work.")
+
+    public final ModuleSetting<String> offHandList = scGeneral.add(createStringSetting()
+            .name("off-hand-item-list")
+            .description("List of items that prevent off-hand swap.")
             .def("totem,crystal,pearl")
             .build()
     );
+
+    public final ModuleSetting<String> mainHandList = scGeneral.add(createStringSetting()
+            .name("main-hand-item-list")
+            .description("List of items that prevent main-hand swap.")
+            .def("totem,crystal,pearl")
+            .build()
+    );
+
     public final ModuleSetting<Boolean> disableMainHandSwap = scGeneral.add(createBoolSetting()
             .name("disable-main-hand-swap")
-            .description("If holding the item in the list, swapping from main to off hand won't work")
+            .description("If enabled, swapping items from the main hand to the off-hand will be blocked if holding restricted items.")
             .def(false)
             .build()
     );
@@ -34,17 +43,18 @@ public class AntiOffHand extends AddonLModule {
     @EventHandler
     private void onKeyPress(KeyPressEvent e) {
         if (e.getKeycode() == mc.options.swapHandsKey.getDefaultKey().getCode()) {
-            if (isHoldingRestrictedItem(Hand.OFF_HAND))
+            if (isHoldingRestrictedItem(Hand.OFF_HAND, offHandList.getVal())) {
                 e.cancel();
-        }
-        if (e.getKeycode() == mc.options.swapHandsKey.getDefaultKey().getCode()) {
-            if (isHoldingRestrictedItem(Hand.MAIN_HAND) && disableMainHandSwap.getVal())
+            }
+
+            if (disableMainHandSwap.getVal() && isHoldingRestrictedItem(Hand.MAIN_HAND, mainHandList.getVal())) {
                 e.cancel();
+            }
         }
     }
 
-    private boolean isHoldingRestrictedItem(Hand hand) {
-        List<String> restrictedItems = Arrays.asList(itemName.getVal().split(","));
-        return restrictedItems.stream().anyMatch(item -> HotbarUtils.nameContains(item, hand));
+    private boolean isHoldingRestrictedItem(Hand hand, String itemList) {
+        List<String> restrictedItems = Arrays.asList(itemList.split(","));
+        return restrictedItems.stream().anyMatch(item -> HotbarUtils.nameContains(item.trim(), hand));
     }
 }
