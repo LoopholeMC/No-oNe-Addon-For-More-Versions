@@ -3,7 +3,6 @@ package net.i_no_am.clickcrystals.addon.modules;
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
 import net.i_no_am.clickcrystals.addon.modules.data.AddonModule;
-import net.minecraft.util.Identifier;
 
 public class NameChanger extends AddonModule {
     public NameChanger(){
@@ -24,7 +23,8 @@ public class NameChanger extends AddonModule {
             .build()
     );
 
-    public Identifier path(){
-        return skin.getVal() ? Identifier.ofVanilla("textures/entity/player/slim/steve.png") : null;
+    public String getUserName(){
+        if (!this.isEnabled() || fakeName.getVal().isEmpty()) return null;
+        return fakeName.getVal();
     }
 }
