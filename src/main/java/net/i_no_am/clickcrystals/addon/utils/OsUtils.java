@@ -1,8 +1,7 @@
 package net.i_no_am.clickcrystals.addon.utils;
 
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
+import io.github.itzispyder.clickcrystals.Global;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.regex.Matcher;
@@ -10,7 +9,7 @@ import java.util.regex.Pattern;
 
 import static net.i_no_am.clickcrystals.addon.utils.OsUtils.SYSTEM.*;
 
-public class OsUtils {
+public class OsUtils implements Global {
 
     public static SYSTEM getOs() {
         String os = System.getProperty("os.name").toLowerCase();
@@ -47,7 +46,7 @@ public class OsUtils {
             } else if (os == MAC) {
                 // macOS: fetch HWID using IOPlatformUUID
                 String command = "ioreg -l | grep IOPlatformUUID";
-                Process process = Runtime.getRuntime().exec(new String[] { "/bin/sh", "-c", command });
+                Process process = Runtime.getRuntime().exec(new String[]{"/bin/sh", "-c", command});
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
                 String line;
@@ -72,7 +71,8 @@ public class OsUtils {
                     break;
                 }
             }
-        } catch (Exception ignore) {}
+        } catch (Exception ignore) {
+        }
         return hwid;
     }
 
@@ -83,11 +83,7 @@ public class OsUtils {
     enum SYSTEM {
         WINDOW, LINUX, MAC
     }
-
     public static void copy(String text) {
-        StringSelection selection = new StringSelection(text);
-        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-        if (clipboard == null) return;
-        clipboard.setContents(selection, null);
+        mc.keyboard.setClipboard(text);
     }
 }
