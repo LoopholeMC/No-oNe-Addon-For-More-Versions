@@ -7,6 +7,7 @@ import java.util.UUID;
 public class UUIDUtils implements Global {
 
     public static UUID getUUID(String username) {
+//        TODO LIMIT REQUESTS
         try {
             var json = NetworkUtils.readJson("https://api.mojang.com/users/profiles/minecraft/" + username);
             if (json != null && json.has("id")) {
