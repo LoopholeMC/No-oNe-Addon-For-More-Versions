@@ -1,7 +1,7 @@
 package net.i_no_am.clickcrystals.addon.mixin;
 
 import io.github.itzispyder.clickcrystals.modules.Module;
-import net.i_no_am.clickcrystals.addon.modules.Prevent;
+import net.i_no_am.clickcrystals.addon.module.modules.Prevent;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.util.ActionResult;

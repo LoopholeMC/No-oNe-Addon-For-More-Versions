@@ -1,10 +1,10 @@
-package net.i_no_am.clickcrystals.addon.modules;
+package net.i_no_am.clickcrystals.addon.module.modules;
 
 import io.github.itzispyder.clickcrystals.events.EventHandler;
 import net.i_no_am.clickcrystals.addon.listener.events.mc.EffectsOverlayInitEvent;
-import net.i_no_am.clickcrystals.addon.modules.data.AddonLModule;
+import net.i_no_am.clickcrystals.addon.module.AddonListenerModule;
 
-public class NoPotionsHud extends AddonLModule {
+public class NoPotionsHud extends AddonListenerModule {
     public NoPotionsHud() {
         super("no-potions-render", "disable the potions/effect hud.");
     }

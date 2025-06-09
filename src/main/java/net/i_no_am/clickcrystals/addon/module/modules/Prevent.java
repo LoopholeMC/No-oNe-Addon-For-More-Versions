@@ -1,9 +1,9 @@
-package net.i_no_am.clickcrystals.addon.modules;
+package net.i_no_am.clickcrystals.addon.module.modules;
 
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
 import io.github.itzispyder.clickcrystals.util.minecraft.HotbarUtils;
-import net.i_no_am.clickcrystals.addon.modules.data.AddonModule;
+import net.i_no_am.clickcrystals.addon.module.AddonModule;
 import net.i_no_am.clickcrystals.addon.utils.BlockUtils;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Items;
@@ -30,13 +30,13 @@ public class Prevent extends AddonModule {
             .build()
     );
 
-    public final ModuleSetting<Boolean> disableDoubleAnchorPlacement = scGeneral.add(createBoolSetting()
+    public final ModuleSetting<Boolean> disableDoubleAnchor = scGeneral.add(createBoolSetting()
             .name("disable-placing-anchor-on-anchor")
             .description("Disable placing a respawn anchor on top of another anchor.")
             .def(true)
             .build()
     );
-    public final ModuleSetting<Boolean> disableGlowstoneOnGlowstone = scGeneral.add(createBoolSetting()
+    public final ModuleSetting<Boolean> disableDoubleGlowstone = scGeneral.add(createBoolSetting()
             .name("disable-placing-glowstone-on-glowstone")
             .description("Disable placing glowstone unless not targeting another glowstone.")
             .def(false)
@@ -44,28 +44,24 @@ public class Prevent extends AddonModule {
     );
 
     public ActionResult cannotPlace() {
-        if (HotbarUtils.isHoldingEitherHand(Items.RESPAWN_ANCHOR)
-                && disableDoubleAnchorPlacement.getVal()
-                && BlockUtils.isLookingAt(Blocks.RESPAWN_ANCHOR)) {
-            if (BlockUtils.anchorWithCharges(1))
-                return ActionResult.PASS;
-            else {
-                return ActionResult.FAIL;
-            }
-        } else if (disableGlowstonePlacement.getVal() &&
-                HotbarUtils.isHoldingEitherHand(Items.GLOWSTONE)
-                && (!BlockUtils.isLookingAt(Blocks.RESPAWN_ANCHOR)
-                || BlockUtils.anchorWithCharges(1))) {
+
+        if (BlockUtils.isLookingAt(Blocks.GLOWSTONE) && !disableDoubleAnchor.getVal() || BlockUtils.isLookingAt(Blocks.RESPAWN_ANCHOR) && !disableDoubleGlowstone.getVal() || !isEnabled())
+            return ActionResult.PASS;
+
+        var pos = BlockUtils.findBlockPos(Blocks.RESPAWN_ANCHOR, 20);
+
+        if (BlockUtils.isAnchorLoaded(1, pos) && HotbarUtils.isHoldingEitherHand(Items.RESPAWN_ANCHOR) && disableDoubleAnchor.getVal())
             return ActionResult.FAIL;
-        } else if (HotbarUtils.isHoldingEitherHand(Items.RESPAWN_ANCHOR)
-                && disableAnchorOnGlowstone.getVal()
-                && BlockUtils.isLookingAt(Blocks.GLOWSTONE)) {
+
+        if (disableGlowstonePlacement.getVal() && HotbarUtils.isHoldingEitherHand(Items.GLOWSTONE) && (!BlockUtils.isLookingAt(Blocks.RESPAWN_ANCHOR) || BlockUtils.isAnchorLoaded(1, pos)))
             return ActionResult.FAIL;
-        } else if (HotbarUtils.isHoldingEitherHand(Items.GLOWSTONE)
-                && disableGlowstoneOnGlowstone.getVal()
-                && BlockUtils.isLookingAt(Blocks.GLOWSTONE)) {
+
+        if (HotbarUtils.isHoldingEitherHand(Items.RESPAWN_ANCHOR) && disableAnchorOnGlowstone.getVal() && BlockUtils.isLookingAt(Blocks.GLOWSTONE))
             return ActionResult.FAIL;
-        }
+
+        if (HotbarUtils.isHoldingEitherHand(Items.GLOWSTONE) && disableDoubleGlowstone.getVal() && BlockUtils.isLookingAt(Blocks.GLOWSTONE))
+            return ActionResult.FAIL;
+
         return ActionResult.PASS;
     }
 }

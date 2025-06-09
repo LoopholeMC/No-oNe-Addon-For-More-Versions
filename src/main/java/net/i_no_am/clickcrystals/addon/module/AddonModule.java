@@ -1,4 +1,4 @@
-package net.i_no_am.clickcrystals.addon.modules.data;
+package net.i_no_am.clickcrystals.addon.module;
 
 import io.github.itzispyder.clickcrystals.modules.modules.DummyModule;
 import net.i_no_am.clickcrystals.addon.client.AddonCategory;

@@ -1,4 +1,4 @@
-package net.i_no_am.clickcrystals.addon.modules;
+package net.i_no_am.clickcrystals.addon.module.modules;
 
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
 import io.github.itzispyder.clickcrystals.modules.modules.ListenerModule;
@@ -22,13 +22,13 @@ public class UpsideDown extends ListenerModule {
     );
 
     public enum IgnoreType {
-        YOU, PLAYERS, ENTITIES, NONE
+        SELF, PLAYERS, ENTITIES, NONE
     }
 
     public boolean shouldIgnore(Entity entity) {
         IgnoreType ignoreType = this.ignoreType.getVal();
         return switch (ignoreType) {
-            case YOU -> entity instanceof ClientPlayerEntity;
+            case SELF -> entity instanceof ClientPlayerEntity;
             case PLAYERS -> entity instanceof PlayerEntity;
             case ENTITIES -> !(entity instanceof ClientPlayerEntity);
             case NONE -> false;

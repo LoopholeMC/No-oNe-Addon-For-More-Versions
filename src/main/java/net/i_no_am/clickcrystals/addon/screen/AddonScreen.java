@@ -17,10 +17,10 @@ public class AddonScreen extends GuiScreen {
     public final int windowHeight = mc.getWindow().getScaledHeight();
     public final int baseWidth = 420;
     public final int baseHeight = 240;
-    public final int baseX = (int) (windowWidth / 2.0 - baseWidth / 2.0);
-    public final int baseY = (int) (windowHeight / 2.0 - baseHeight / 2.0);
+    public final int baseX = windowWidth / 2 - baseWidth / 2;
+    public final int baseY = windowHeight / 2 - baseHeight / 2;
 
-    private final HyperLinkElement discordLink = new HyperLinkElement(0, 0, "https://discord.com/users/1051897115447660697","https://discord.com/users/I-No-oNe", 1.0F);
+    private final HyperLinkElement discordLink = new HyperLinkElement(0, 0, "https://discord.com/users/1051897115447660697", "https://discord.com/users/I-No-oNe", 1.0F);
 
     public AddonScreen() {
         super("addon-ban-screen");
@@ -57,8 +57,6 @@ public class AddonScreen extends GuiScreen {
         discordLink.y = cY + 10;
     }
 
-    public void close() {
-    }
 
     @Override
     public void resize(MinecraftClient client, int width, int height) {

@@ -2,7 +2,7 @@ package net.i_no_am.clickcrystals.addon.mixin;
 
 import io.github.itzispyder.clickcrystals.modules.Module;
 import io.github.itzispyder.clickcrystals.util.minecraft.PlayerUtils;
-import net.i_no_am.clickcrystals.addon.modules.NameChanger;
+import net.i_no_am.clickcrystals.addon.module.modules.NameChanger;
 import net.i_no_am.clickcrystals.addon.utils.UUIDUtils;
 import net.minecraft.client.util.DefaultSkinHelper;
 import net.minecraft.client.util.SkinTextures;

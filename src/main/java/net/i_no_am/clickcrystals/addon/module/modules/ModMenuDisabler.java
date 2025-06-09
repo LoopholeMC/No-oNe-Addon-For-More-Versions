@@ -1,19 +1,15 @@
-package net.i_no_am.clickcrystals.addon.modules;
+package net.i_no_am.clickcrystals.addon.module.modules;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
+import com.google.gson.*;
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
+import io.github.itzispyder.clickcrystals.util.FileValidationUtils;
 import net.fabricmc.loader.api.FabricLoader;
 import net.i_no_am.clickcrystals.addon.client.Manager;
-import net.i_no_am.clickcrystals.addon.modules.data.AddonModule;
+import net.i_no_am.clickcrystals.addon.module.AddonModule;
 
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 
@@ -37,15 +33,17 @@ public class ModMenuDisabler extends AddonModule {
         if (modIdsString.isEmpty()) return;
 
         String[] modIds = modIdsString.split(",");
+
+        Path configDir = FabricLoader.getInstance().getConfigDir();
+        File modMenuConfigFile = configDir.resolve("modmenu.json").toFile();
+
+        if (!FileValidationUtils.validate(modMenuConfigFile)) {
+            JsonObject newConfig = new JsonObject();
+            newConfig.add("hidden_mods", new JsonArray());
+            FileValidationUtils.quickWrite(modMenuConfigFile, newConfig.toString());
+        }
+
         try {
-            Path configDir = FabricLoader.getInstance().getConfigDir();
-            File modMenuConfigFile = configDir.resolve("modmenu.json").toFile();
-
-            if (!modMenuConfigFile.exists()) {
-                system.printf("modmenu.json does not exist.");
-                return;
-            }
-
             JsonObject modMenuConfig;
             try (FileReader reader = new FileReader(modMenuConfigFile)) {
                 modMenuConfig = JsonParser.parseReader(reader).getAsJsonObject();
@@ -63,26 +61,22 @@ public class ModMenuDisabler extends AddonModule {
                 addModToHiddenMods(hiddenMods, modId.trim());
             }
 
-            try (FileWriter writer = new FileWriter(modMenuConfigFile)) {
-                writer.write(modMenuConfig.toString());
-                writer.flush();
-            }
-        } catch (IOException | JsonSyntaxException ignore) {
+            FileValidationUtils.quickWrite(modMenuConfigFile, modMenuConfig.toString());
+
+        } catch (IOException | JsonSyntaxException e) {
+            system.println("Error updating modmenu.json: " + e.getMessage());
         }
     }
 
     private void addModToHiddenMods(JsonArray hiddenMods, String modId) {
         if (modId.isEmpty()) return;
 
-        boolean alreadyHidden = false;
         for (JsonElement element : hiddenMods) {
             if (element.getAsString().equals(modId)) {
-                alreadyHidden = true;
-                break;
+                return;
             }
         }
-        if (!alreadyHidden) {
-            hiddenMods.add(modId);
-        }
+
+        hiddenMods.add(modId);
     }
 }

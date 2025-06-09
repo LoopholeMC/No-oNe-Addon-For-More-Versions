@@ -5,8 +5,8 @@ import io.github.itzispyder.clickcrystals.commands.Command;
 import io.github.itzispyder.clickcrystals.modules.Module;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.i_no_am.clickcrystals.addon.modules.data.AddonLModule;
-import net.i_no_am.clickcrystals.addon.modules.data.AddonModule;
+import net.i_no_am.clickcrystals.addon.module.AddonListenerModule;
+import net.i_no_am.clickcrystals.addon.module.AddonModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,12 +70,8 @@ public abstract class Manager implements Global {
 
         public static List<Module> getAddonModule() {
             return new ArrayList<>(system.collectModules().stream()
-                    .filter(module -> module instanceof AddonLModule || module instanceof AddonModule)
+                    .filter(module -> module instanceof AddonListenerModule || module instanceof AddonModule)
                     .toList());
         }
-    }
-
-    public static boolean isFeatherClient() {
-        return FabricLoader.getInstance().isModLoaded("feather");
     }
 }

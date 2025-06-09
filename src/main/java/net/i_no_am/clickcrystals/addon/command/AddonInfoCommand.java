@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class AddonInfoCommand extends Command {
     public AddonInfoCommand() {
-        super("addon-info", "Copy the add-on modules' & commands' descriptions and names into a chart", ",get addon modules and command info");
+        super("addon-info", "Copy the add-on module' & commands' descriptions and names into a chart", ",get addon module and command info");
     }
 
     @Override
@@ -45,7 +45,7 @@ public class AddonInfoCommand extends Command {
 
             OsUtils.copy(chart);
 
-            info("Addon modules and commands chart has been copied to your clipboard!");
+            info("Addon module and commands chart has been copied to your clipboard!");
             return SINGLE_SUCCESS;
         });
     }

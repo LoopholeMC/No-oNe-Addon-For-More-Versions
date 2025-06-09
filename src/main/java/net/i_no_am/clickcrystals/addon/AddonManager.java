@@ -4,12 +4,11 @@ import io.github.itzispyder.clickcrystals.Global;
 import io.github.itzispyder.clickcrystals.data.Config;
 import io.github.itzispyder.clickcrystals.data.JsonSerializable;
 import net.fabricmc.api.ClientModInitializer;
-import net.i_no_am.clickcrystals.addon.client.Manager;
 import net.i_no_am.clickcrystals.addon.command.*;
 import net.i_no_am.clickcrystals.addon.listener.AddonListener;
-import net.i_no_am.clickcrystals.addon.modules.*;
+import net.i_no_am.clickcrystals.addon.module.modules.*;
 
-@SuppressWarnings("unused")
+// TODO -> Add a module to dm spam players with words, check mixins, listeners, commands, client, and implement a update check like in view model
 public final class AddonManager implements ClientModInitializer, Global {
     public static Config config = JsonSerializable.load(Config.PATH_CONFIG, Config.class, new Config());
     public static boolean isBanned = true;
@@ -58,10 +57,5 @@ public final class AddonManager implements ClientModInitializer, Global {
         system.printf("<- Profile set '%s'", system.profiles.profileConfig.getCurrentProfileName());
         system.printf("<- allowed to use the addon: %s", !isBanned);
         system.printf("Finish Loading No one's Addon!");
-        if (Manager.isFeatherClient())
-            exit();
-    }
-    private void exit(){
-        System.exit(-1);
     }
 }

@@ -1,11 +1,11 @@
-package net.i_no_am.clickcrystals.addon.modules.data;
+package net.i_no_am.clickcrystals.addon.module;
 
 import io.github.itzispyder.clickcrystals.modules.modules.ListenerModule;
 import net.i_no_am.clickcrystals.addon.client.AddonCategory;
 
-public class AddonLModule extends ListenerModule {
+public class AddonListenerModule extends ListenerModule {
 
-    public AddonLModule(String name, String description) {
+    public AddonListenerModule(String name, String description) {
         super(name, AddonCategory.ADDON, description);
     }
 }

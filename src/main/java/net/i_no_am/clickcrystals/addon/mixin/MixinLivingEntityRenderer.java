@@ -1,7 +1,7 @@
 package net.i_no_am.clickcrystals.addon.mixin;
 
 import io.github.itzispyder.clickcrystals.modules.Module;
-import net.i_no_am.clickcrystals.addon.modules.UpsideDown;
+import net.i_no_am.clickcrystals.addon.module.modules.UpsideDown;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;

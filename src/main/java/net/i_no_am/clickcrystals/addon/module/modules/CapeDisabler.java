@@ -1,12 +1,12 @@
-package net.i_no_am.clickcrystals.addon.modules;
+package net.i_no_am.clickcrystals.addon.module.modules;
 
 import io.github.itzispyder.clickcrystals.events.EventHandler;
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
 import net.i_no_am.clickcrystals.addon.listener.events.cc.PlayerJoinEvent;
-import net.i_no_am.clickcrystals.addon.modules.data.AddonLModule;
+import net.i_no_am.clickcrystals.addon.module.AddonListenerModule;
 
-public class CapeDisabler extends AddonLModule {
+public class CapeDisabler extends AddonListenerModule {
     private final SettingSection scGeneral = getGeneralSection();
     public final ModuleSetting<Boolean> disableStaffNotifications = scGeneral.add(createBoolSetting()
             .name("disable-staff-notifications")

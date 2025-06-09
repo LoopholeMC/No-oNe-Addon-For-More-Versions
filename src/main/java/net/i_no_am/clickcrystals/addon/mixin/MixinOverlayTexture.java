@@ -3,7 +3,7 @@ package net.i_no_am.clickcrystals.addon.mixin;
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.itzispyder.clickcrystals.modules.Module;
 import net.i_no_am.clickcrystals.addon.interfaces.OverlayReloadListener;
-import net.i_no_am.clickcrystals.addon.modules.HitColor;
+import net.i_no_am.clickcrystals.addon.module.modules.HitColor;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;

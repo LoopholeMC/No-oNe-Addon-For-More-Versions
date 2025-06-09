@@ -1,4 +1,4 @@
-package net.i_no_am.clickcrystals.addon.modules;
+package net.i_no_am.clickcrystals.addon.module.modules;
 
 import io.github.itzispyder.clickcrystals.events.EventHandler;
 import io.github.itzispyder.clickcrystals.events.events.world.ClientTickEndEvent;
@@ -9,22 +9,22 @@ import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
 import io.github.itzispyder.clickcrystals.util.minecraft.ChatUtils;
 import io.github.itzispyder.clickcrystals.util.minecraft.HotbarUtils;
 import io.github.itzispyder.clickcrystals.util.minecraft.PlayerUtils;
-import net.i_no_am.clickcrystals.addon.modules.data.AddonLModule;
-import net.minecraft.item.ItemStack;
+import net.i_no_am.clickcrystals.addon.module.AddonListenerModule;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
-public class LootKeeper extends AddonLModule {
+public class LootKeeper extends AddonListenerModule {
 
     public LootKeeper() {
         super("loot-keeper", "Throw every item on slot that isn't in the list.");
     }
 
-    private boolean isOn = false;
+    private boolean isToggle = false;
     private long lastThrowTime = 0;
     private static final long THROW_DELAY_MS = 100;
 
@@ -36,37 +36,53 @@ public class LootKeeper extends AddonLModule {
             .build()
     );
 
+    @SuppressWarnings("unused")
     public final ModuleSetting<Keybind> activateModule = scGeneral.add(KeybindSetting.create()
             .name("activate-module-bind")
             .description("Key to start throwing items not in the list.")
             .def(GLFW.GLFW_KEY_G)
             .onPress(keybind -> {
-                isOn = !isOn;
-                ChatUtils.sendPrefixMessage("Module is " + (isOn ? Formatting.AQUA + "on" : Formatting.RED + "off") + Formatting.RESET);
+                isToggle = !isToggle;
+                ChatUtils.sendPrefixMessage("LootKeeper module is " + (isToggle ? Formatting.AQUA + "ON" : Formatting.RED + "OFF") + Formatting.RESET);
             })
             .condition((bind, screen) -> screen == null)
             .build()
     );
 
+    private List<String> cachedKeepList = null;
+    private String lastRawKeepList = "";
+
     @EventHandler
     private void onTick(ClientTickEndEvent e) {
-        if (PlayerUtils.invalid() || !isOn) return;
+        if (PlayerUtils.invalid() || !isToggle) return;
+
+        String rawKeepList = listItem.getVal();
+
+        if (!rawKeepList.equals(lastRawKeepList)) {
+            cachedKeepList = Arrays.stream(rawKeepList.split(","))
+                    .map(String::trim)
+                    .map(s -> s.toLowerCase(Locale.ROOT))
+                    .toList();
+            lastRawKeepList = rawKeepList;
+        }
 
         long currentTime = System.currentTimeMillis();
+        if (currentTime - lastThrowTime < THROW_DELAY_MS) return;
 
-        List<String> itemsToKeep = Arrays.stream(listItem.getVal().split(","))
-                .map(String::trim)
-                .map(String::toLowerCase)
-                .toList();
 
-        boolean shouldKeepItem = itemsToKeep.stream().anyMatch(HotbarUtils::nameContains);
+        boolean shouldKeep = cachedKeepList.stream().anyMatch(HotbarUtils::nameContains);
 
-        ItemStack slot = PlayerUtils.player().getStackInHand(Hand.MAIN_HAND);
+        if (!shouldKeep) {
+            // Select the slot with unwanted item
+            HotbarUtils.search(i -> cachedKeepList.contains(i.getTranslationKey()));
 
-        if (!slot.isEmpty() && !shouldKeepItem && (currentTime - lastThrowTime) >= THROW_DELAY_MS) {
+            // Drop the item (true = drop entire stack)
             PlayerUtils.player().dropSelectedItem(true);
+
+            // Swing hand for animation
+            PlayerUtils.player().swingHand(Hand.MAIN_HAND);
+
             lastThrowTime = currentTime;
-            if (slot.isEmpty()) PlayerUtils.player().swingHand(Hand.MAIN_HAND);
         }
     }
 }

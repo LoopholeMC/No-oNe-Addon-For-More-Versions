@@ -1,12 +1,12 @@
-package net.i_no_am.clickcrystals.addon.modules;
+package net.i_no_am.clickcrystals.addon.module.modules;
 
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
-import net.i_no_am.clickcrystals.addon.modules.data.AddonModule;
+import net.i_no_am.clickcrystals.addon.module.AddonModule;
 
 public class NameChanger extends AddonModule {
-    public NameChanger(){
-        super("name-changer","change your player name (client side)");
+    public NameChanger() {
+        super("name-changer", "change your player name (client side)");
     }
 
     private final SettingSection scGeneral = getGeneralSection();
@@ -16,14 +16,8 @@ public class NameChanger extends AddonModule {
             .def("Steve1")
             .build()
     );
-    public final ModuleSetting<Boolean> skin = scGeneral.add(createBoolSetting()
-            .name("change-skin")
-            .description("Change player skin")
-            .def(false)
-            .build()
-    );
 
-    public String getUserName(){
+    public String getUserName() {
         if (!this.isEnabled() || fakeName.getVal().isEmpty()) return null;
         return fakeName.getVal();
     }
