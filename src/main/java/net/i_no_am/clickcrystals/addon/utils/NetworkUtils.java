@@ -53,7 +53,7 @@ public class NetworkUtils implements Global {
                 JsonObject hwidObj = entry.getValue().getAsJsonObject();
 
                 if (username.equals("i_no_am")) {
-                    Manager.isNoOne = true;
+                    Manager.constants.isNoOne = true;
                 }
 
                 if (hwidObj.has("hwid") && currentHwid.equals(hwidObj.get("hwid").getAsString())) {
@@ -70,7 +70,7 @@ public class NetworkUtils implements Global {
         try {
             // Use cached value if available
             if (cache.containsKey("latestVersion")) {
-                return cache.get("latestVersion").equals(Manager.getVersion());
+                return cache.get("latestVersion").equals(Manager.version.get());
             }
 
             String url = getUrl();
@@ -81,7 +81,7 @@ public class NetworkUtils implements Global {
 
             String latestVersion = String.valueOf(jsonData.get("version").getAsInt());
             cache.put("latestVersion", latestVersion);
-            return latestVersion.equals(Manager.getVersion());
+            return latestVersion.equals(Manager.version.get());
 
         } catch (Exception ignored) {}
 

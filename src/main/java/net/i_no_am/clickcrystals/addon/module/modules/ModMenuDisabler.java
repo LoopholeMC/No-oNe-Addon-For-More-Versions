@@ -23,7 +23,7 @@ public class ModMenuDisabler extends AddonModule {
     public final ModuleSetting<String> modIdNames = scGeneral.add(createStringSetting()
             .name("mods-id's")
             .description("Comma-separated list of mod IDs that you want to hide.")
-            .def(Manager.MOD_ID + "," + modId)
+            .def(Manager.constants.MOD_ID + "," + modId)
             .build()
     );
 

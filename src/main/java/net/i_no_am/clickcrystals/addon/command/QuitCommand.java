@@ -15,7 +15,8 @@ public class QuitCommand extends Command {
 
     @Override
     public void build(LiteralArgumentBuilder<CommandSource> literalArgumentBuilder) {
-        Text disconnectMessage = Text.literal("You Have Been Disconnected Via The &aNo One Addon!");
+
+        Text disconnectMessage = Text.literal("You Have Been Disconnected Via &aNo One Addon!");
 
         literalArgumentBuilder.executes(context -> {
             PlayerUtils.sendPacket(new DisconnectS2CPacket(disconnectMessage));

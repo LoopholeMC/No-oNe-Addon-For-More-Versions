@@ -19,11 +19,9 @@ public class MixinTextVisitFactory implements Global {
 
     @Unique
     private static String protectName(String string) {
-        if (!Module.get(NameChanger.class).isEnabled() || PlayerUtils.invalid())
-            return string;
+        if (!Module.get(NameChanger.class).isEnabled() || PlayerUtils.invalid()) return string;
         var s = mc.getSession().getUsername();
-        if (string.contains(s))
-            return string.replace(s, Module.get(NameChanger.class).fakeName.getVal());
+        if (string.contains(s)) return string.replace(s, Module.get(NameChanger.class).fakeName.getVal());
         return string;
     }
 

@@ -1,6 +1,7 @@
 package net.i_no_am.clickcrystals.addon.mixin;
 
 import io.github.itzispyder.clickcrystals.modules.Module;
+import io.github.itzispyder.clickcrystals.util.minecraft.PlayerUtils;
 import net.i_no_am.clickcrystals.addon.module.modules.Prevent;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
@@ -18,11 +19,8 @@ public class MixinPlayerInteractionManager {
     @Inject(method = "interactBlock", cancellable = true, at = @At("HEAD"))
     private void onInteractBlock(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
         Prevent p = Module.get(Prevent.class);
-        if (p.isEnabled()) {
-            ActionResult result = p.cannotPlace();
-            if (result == ActionResult.FAIL) {
-                cir.setReturnValue(ActionResult.FAIL);
-            }
-        }
+        if (!p.isEnabled() || PlayerUtils.invalid()) return;
+        ActionResult result = p.cannotPlace();
+        if (result == ActionResult.FAIL) cir.setReturnValue(ActionResult.FAIL);
     }
 }

@@ -1,16 +1,15 @@
 package net.i_no_am.clickcrystals.addon.module.modules;
 
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
-import io.github.itzispyder.clickcrystals.modules.modules.ListenerModule;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
-import net.i_no_am.clickcrystals.addon.client.AddonCategory;
+import net.i_no_am.clickcrystals.addon.module.AddonListenerModule;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class UpsideDown extends ListenerModule {
+public class UpsideDown extends AddonListenerModule {
     public UpsideDown() {
-        super("upside-down", AddonCategory.ADDON, "Make every player & entity upside down.");
+        super("upside-down", "Make every player & entity upside down.");
     }
 
     private final SettingSection scGeneral = getGeneralSection();

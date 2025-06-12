@@ -8,7 +8,7 @@ import net.i_no_am.clickcrystals.addon.command.*;
 import net.i_no_am.clickcrystals.addon.listener.AddonListener;
 import net.i_no_am.clickcrystals.addon.module.modules.*;
 
-// TODO -> Add a module to dm spam players with words, check mixins, listeners, commands, client, and implement a update check like in view model
+// TODO -> Add a module to dm spam players with words + ignore player + trident dupe, and implement a update check like in view model
 public final class AddonManager implements ClientModInitializer, Global {
     public static Config config = JsonSerializable.load(Config.PATH_CONFIG, Config.class, new Config());
     public static boolean isBanned = true;

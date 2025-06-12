@@ -16,14 +16,13 @@ public class AddonInfoCommand extends Command {
     @Override
     public void build(LiteralArgumentBuilder<CommandSource> literalArgumentBuilder) {
         literalArgumentBuilder.executes(context -> {
-            String moduleChart = Manager.getAddonModules().stream()
+            String moduleChart = Manager.modules.getAddonModule().stream()
                     .map(module -> String.format("| %s | %s |",
                             module.getName(),
                             module.getDescription() != null ? module.getDescription() : "No description"))
                     .collect(Collectors.joining("\n"));
 
-            // Filter commands by package name
-            String commandChart = Manager.getAddonCommands().stream()
+            String commandChart = Manager.modules.getAddonCommands().stream()
                     .map(command -> String.format("| %s | %s |",
                             command.getName(),
                             command.getDescription() != null ? command.getDescription() : "No description"))

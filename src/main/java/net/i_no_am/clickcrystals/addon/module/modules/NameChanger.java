@@ -16,7 +16,7 @@ public class NameChanger extends AddonModule {
             .def("Steve1")
             .build()
     );
-
+// TODO FIX OR REMOVE!
     public String getUserName() {
         if (!this.isEnabled() || fakeName.getVal().isEmpty()) return null;
         return fakeName.getVal();
