@@ -1,6 +1,5 @@
 package net.i_no_am.clickcrystals.addon.client.data;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.i_no_am.clickcrystals.addon.utils.NetworkUtils;
 
 public class Constants {
@@ -13,14 +12,5 @@ public class Constants {
 
     public static class VARS {
         public static final String MOD_ID = "no-one-addon";
-    }
-
-    public static class INSIDER {
-        public static boolean i_no_am = false;
-
-        @Deprecated()
-        public boolean isDev() {
-            return FabricLoader.getInstance().isDevelopmentEnvironment() || i_no_am;
-        }
     }
 }

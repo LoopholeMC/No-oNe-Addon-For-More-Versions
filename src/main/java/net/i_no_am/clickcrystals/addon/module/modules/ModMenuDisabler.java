@@ -1,6 +1,7 @@
 package net.i_no_am.clickcrystals.addon.module.modules;
 
 import com.google.gson.*;
+import io.github.itzispyder.clickcrystals.client.client.ModMenuIntegration;
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
 import io.github.itzispyder.clickcrystals.util.FileValidationUtils;
@@ -30,6 +31,11 @@ public class ModMenuDisabler extends AddonModule {
 
     @Override
     public void onEnable() {
+        if (!FabricLoader.getInstance().isModLoaded("modmenu")) {
+            toggle();
+            return;
+        }
+
         String modIdsString = modIdNames.getVal();
         if (modIdsString.isEmpty()) return;
 

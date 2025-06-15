@@ -14,15 +14,13 @@ public class NetherPortalCommand extends Command {
     }
 
     @Override
-    public void build(LiteralArgumentBuilder<CommandSource> literalArgumentBuilder) {
-        literalArgumentBuilder.executes(context -> {
-
-            BlockPos portalPos = BlockUtils.findBlockPos(Blocks.NETHER_PORTAL, mc.options.getSimulationDistance().getValue());
-
-            if (portalPos == null) info("No Nether portals are nearby.");
-            if (portalPos != null)
+    public void build(LiteralArgumentBuilder<CommandSource> builder) {
+        builder.executes(context -> {
+            BlockPos portalPos = BlockUtils.findBlockPos(Blocks.NETHER_PORTAL, mc.options.getSimulationDistance().getValue() * 16);
+            if (portalPos == null)
+                info("No Nether portals are nearby.");
+            else
                 info("Found Nether portal at: X: %d, Y: %d, Z: %d".formatted(portalPos.getX(), portalPos.getY(), portalPos.getZ()));
-
             return SINGLE_SUCCESS;
         });
     }

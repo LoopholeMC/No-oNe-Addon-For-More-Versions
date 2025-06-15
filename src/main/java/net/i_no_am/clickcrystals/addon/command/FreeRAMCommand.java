@@ -11,8 +11,11 @@ public class FreeRAMCommand extends Command {
 
     @Override
     public void build(LiteralArgumentBuilder<CommandSource> builder) {
-        info("Request freeing RAM.");
-        System.gc();
-        info("Freed RAM.");
+        builder.executes(context -> {
+            info("Request freeing RAM.");
+            System.gc();
+            info("Freed RAM.");
+            return SINGLE_SUCCESS;
+        });
     }
 }

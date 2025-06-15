@@ -12,8 +12,11 @@ public class HwidCommand extends Command {
     }
 
     @Override
-    public void build(LiteralArgumentBuilder<CommandSource> literalArgumentBuilder) {
-        info( "Your HWID is: "+ Formatting.GOLD + OsUtils.getHWID());
-        OsUtils.copy(OsUtils.getHWID());
+    public void build(LiteralArgumentBuilder<CommandSource> build) {
+        build.executes(context -> {
+            info( "Your HWID is: "+ Formatting.GOLD + OsUtils.getHWID());
+            OsUtils.copy(OsUtils.getHWID());
+            return SINGLE_SUCCESS;
+        });
     }
 }

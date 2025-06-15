@@ -3,8 +3,8 @@ package net.i_no_am.clickcrystals.addon.screen;
 import io.github.itzispyder.clickcrystals.gui.GuiScreen;
 import io.github.itzispyder.clickcrystals.util.StringUtils;
 import io.github.itzispyder.clickcrystals.util.minecraft.PlayerUtils;
-import io.github.itzispyder.clickcrystals.util.minecraft.RenderUtils;
 import io.github.itzispyder.clickcrystals.gui.elements.common.interactive.HyperLinkElement;
+import io.github.itzispyder.clickcrystals.util.minecraft.render.RenderUtils;
 import net.i_no_am.clickcrystals.addon.utils.OsUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -32,7 +32,7 @@ public class AddonScreen extends GuiScreen {
         if (PlayerUtils.invalid()) {
             this.renderPanoramaBackground(context, delta);
         }
-        this.applyBlur(delta);
+        this.applyBlur();
         this.renderDarkening(context);
 
         int cX = baseX + baseWidth / 2;

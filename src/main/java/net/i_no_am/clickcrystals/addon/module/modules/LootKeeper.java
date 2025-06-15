@@ -74,7 +74,7 @@ public class LootKeeper extends AddonListenerModule {
 
         if (!shouldKeep) {
             // Select the slot with unwanted item
-            HotbarUtils.search(i -> cachedKeepList.contains(i.getTranslationKey()));
+            HotbarUtils.search(i -> cachedKeepList.contains(i.getItem().getTranslationKey()));
 
             // Drop the item (true = drop entire stack)
             PlayerUtils.player().dropSelectedItem(true);

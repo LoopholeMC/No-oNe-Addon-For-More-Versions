@@ -1,8 +1,8 @@
 package net.i_no_am.clickcrystals.addon.mixin;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import io.github.itzispyder.clickcrystals.Global;
 import io.github.itzispyder.clickcrystals.modules.Module;
-import net.i_no_am.clickcrystals.addon.interfaces.OverlayReloadListener;
 import net.i_no_am.clickcrystals.addon.module.modules.HitColor;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.texture.NativeImage;
@@ -15,27 +15,21 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-
 import java.awt.*;
 
 @Mixin(OverlayTexture.class)
-public abstract class MixinOverlayTexture implements OverlayReloadListener {
+public abstract class MixinOverlayTexture implements Global {
+
     @Shadow @Final private NativeImageBackedTexture texture;
 
     @Inject(method = "<init>", at = @At("TAIL"))
     public void modifyHitColor(CallbackInfo ci) {
         this.reloadOverlay();
-        OverlayReloadListener.register(this);
     }
 
-    public void no_oNe_Addon$onOverlayReload() {
-        this.reloadOverlay();
-    }
-
-    @Unique
-    private static int getColorInt(int red, int green, int blue, int alpha) {
+    @Unique private static int getColorInt(int red, int green, int blue, int alpha) {
         alpha = 255 - alpha;
-        return (alpha << 24) + (blue << 16) + (green << 8) + red;
+        return (alpha << 24) | (blue << 16) | (green << 8) | red;
     }
 
     @Unique
@@ -54,11 +48,8 @@ public abstract class MixinOverlayTexture implements OverlayReloadListener {
                     }
                 }
             }
-
-            RenderSystem.activeTexture(33985);
-            this.texture.bindTexture();
-            nativeImage.upload(0, 0, 0, 0, 0, nativeImage.getWidth(), nativeImage.getHeight(), false, true, false, false);
-            RenderSystem.activeTexture(33984);
         }
+        RenderSystem.setShaderTexture(0, this.texture.getGlTexture());
+        this.texture.upload();
     }
 }
