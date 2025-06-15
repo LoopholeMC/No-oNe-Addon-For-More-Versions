@@ -68,7 +68,8 @@ public class AddonVersion implements Global {
 
     private static String fetchRemoteVersion() {
         try {
-            return NetworkUtils.getJson(Constants.URL.API, "version").getAsString();
+            var json = NetworkUtils.getJson(Constants.URL.API, "version");
+            return json != null ? json.getAsString() : "0.0";
         } catch (Exception e) {
             system.logger.error("Failed to fetch remote version -> " + e.getMessage());
         }
