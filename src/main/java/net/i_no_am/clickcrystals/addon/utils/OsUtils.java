@@ -4,6 +4,8 @@ import io.github.itzispyder.clickcrystals.Global;
 import net.minecraft.client.MinecraftClient;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.regex.Matcher;
@@ -27,7 +29,10 @@ public class OsUtils implements Global {
     }
 
     public static void copy(String text) {
-        mc.keyboard.setClipboard(text);
+        StringSelection selection = new StringSelection(text);
+        Toolkit.getDefaultToolkit()
+                .getSystemClipboard()
+                .setContents(selection, null);
     }
 
     public static String getHWID() {
@@ -81,8 +86,13 @@ public class OsUtils implements Global {
     }
 
     private static String runCommandAndMatch(String command, String regex) throws Exception {
-        return runCommandAndMatch(new String[]{"/bin/sh", "-c", command}, regex);
+        String[] commandArray;
+        // Use cmd.exe on Windows:
+        if (getOs() == WINDOW) commandArray = new String[]{"cmd.exe", "/c", command};
+        else commandArray = new String[]{"/bin/sh", "-c", command};
+        return runCommandAndMatch(commandArray, regex);
     }
+
 
     private static String runCommandAndMatch(String[] command, String regex) throws Exception {
         ProcessBuilder builder = new ProcessBuilder(command);
@@ -95,11 +105,14 @@ public class OsUtils implements Global {
             while ((line = reader.readLine()) != null) {
                 Matcher matcher = pattern.matcher(line.trim());
                 if (matcher.find()) {
-                    return matcher.group(1) != null ? matcher.group(1) : matcher.group(0);
+                    if (matcher.groupCount() >= 1) {
+                        String g1 = matcher.group(1);
+                        if (g1 != null && !g1.isEmpty()) return g1;
+                    }
+                    return matcher.group(0);
                 }
             }
         }
-
         return null;
     }
 }

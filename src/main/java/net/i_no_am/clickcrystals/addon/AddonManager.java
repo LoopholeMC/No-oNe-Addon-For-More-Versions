@@ -4,11 +4,11 @@ import io.github.itzispyder.clickcrystals.Global;
 import io.github.itzispyder.clickcrystals.data.Config;
 import io.github.itzispyder.clickcrystals.data.JsonSerializable;
 import net.fabricmc.api.ClientModInitializer;
+import net.i_no_am.clickcrystals.addon.client.data.Constants;
 import net.i_no_am.clickcrystals.addon.command.*;
 import net.i_no_am.clickcrystals.addon.listener.AddonListener;
 import net.i_no_am.clickcrystals.addon.module.modules.*;
 
-// TODO -> Add a module to dm spam players with words + ignore player + trident dupe, and implement a update check like in view model
 public final class AddonManager implements ClientModInitializer, Global {
     public static Config config = JsonSerializable.load(Config.PATH_CONFIG, Config.class, new Config());
     public static boolean isBanned = true;
@@ -32,6 +32,7 @@ public final class AddonManager implements ClientModInitializer, Global {
         system.addModule(new LootKeeper());
         system.addModule(new NoPotionsHud());
         system.addModule(new HitColor());
+        system.addModule(new DMSpammer());
         system.addModule(new ModMenuDisabler());
         system.addModule(new UpsideDown());
         system.addModule(new Prevent());
@@ -53,9 +54,10 @@ public final class AddonManager implements ClientModInitializer, Global {
         config.loadEntireConfig();
         system.println("-> loading profiles...");
         system.profiles.init();
-        system.printf("-> checking if %s can use the addon...", mc.getSession().getUsername());
+        system.printf("-> Checking if %s can use the addon...", mc.getSession().getUsername());
         system.printf("<- Profile set '%s'", system.profiles.profileConfig.getCurrentProfileName());
-        system.printf("<- allowed to use the addon: %s", !isBanned);
+        system.printf("<- Fetch addon data from: %s", Constants.URL.API);
+        system.printf("<- Allowed to use the addon: %s", !isBanned);
         system.printf("Finish Loading No one's Addon!");
     }
 }

@@ -6,6 +6,7 @@ import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
 import io.github.itzispyder.clickcrystals.util.FileValidationUtils;
 import net.fabricmc.loader.api.FabricLoader;
 import net.i_no_am.clickcrystals.addon.client.Manager;
+import net.i_no_am.clickcrystals.addon.client.data.Constants;
 import net.i_no_am.clickcrystals.addon.module.AddonModule;
 
 import java.io.File;
@@ -23,7 +24,7 @@ public class ModMenuDisabler extends AddonModule {
     public final ModuleSetting<String> modIdNames = scGeneral.add(createStringSetting()
             .name("mods-id's")
             .description("Comma-separated list of mod IDs that you want to hide.")
-            .def(Manager.constants.MOD_ID + "," + modId)
+            .def(Constants.VARS.MOD_ID + "," + modId)
             .build()
     );
 

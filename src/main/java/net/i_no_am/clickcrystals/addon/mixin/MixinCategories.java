@@ -13,14 +13,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Mixin(Categories.class)
+@Mixin(value = Categories.class, remap = false)
 public class MixinCategories {
 
-    @Shadow
-    @Final
-    private static LinkedHashMap<String, Category> categories;
+    @Shadow @Final private static LinkedHashMap<String, Category> categories;
 
-    @Inject(remap = false, method = "getCategories", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getCategories", at = @At("HEAD"), cancellable = true)
     private static void addAddonCategory(CallbackInfoReturnable<LinkedHashMap<String, Category>> cir) {
         LinkedHashMap<String, Category> updatedCategories = new LinkedHashMap<>();
         for (Map.Entry<String, Category> entry : categories.entrySet()) {

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(TitleScreen.class)
 public class MixinTitleScreen implements Global {
-    @Inject(method = "init", at = @At("RETURN"))
+    @Inject(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;getSplashTextLoader()Lnet/minecraft/client/resource/SplashTextResourceSupplier;", shift = At.Shift.BEFORE))
     private void initGame(CallbackInfo ci) {
         system.eventBus.pass(new TitleScreenInitEvent());
     }
