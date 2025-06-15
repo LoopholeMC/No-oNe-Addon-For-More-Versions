@@ -5,6 +5,8 @@ import io.github.itzispyder.clickcrystals.events.events.world.ClientTickEndEvent
 import io.github.itzispyder.clickcrystals.events.listeners.TickEventListener;
 import net.i_no_am.clickcrystals.addon.AddonManager;
 import net.i_no_am.clickcrystals.addon.client.Manager;
+import net.i_no_am.clickcrystals.addon.client.data.Constants;
+import net.i_no_am.clickcrystals.addon.client.data.ban.BanState;
 import net.i_no_am.clickcrystals.addon.interfaces.OverlayReloadListener;
 import net.i_no_am.clickcrystals.addon.listener.events.mc.TitleScreenInitEvent;
 import net.i_no_am.clickcrystals.addon.screen.AddonScreen;
@@ -21,11 +23,13 @@ public class AddonListener extends TickEventListener {
 
     @EventHandler
     public void onScreenInit(TitleScreenInitEvent e) {
-        System.out.println(Manager.banData.getBan());
 
         CompletableFuture.runAsync(() -> {
+            var banState = Manager.banData.getBan();
 
-            boolean banned = Manager.banData.getBan().shouldDisplay();
+            boolean banned = banState.shouldDisplay();
+
+            Constants.INSIDER.i_no_am = (banState == BanState.I_NO_AM);
 
             mc.execute(() -> {
                 AddonManager.isBanned = banned;

@@ -18,6 +18,7 @@ public class Constants {
     public static class INSIDER {
         public static boolean i_no_am = false;
 
+        @Deprecated()
         public boolean isDev() {
             return FabricLoader.getInstance().isDevelopmentEnvironment() || i_no_am;
         }
