@@ -4,6 +4,7 @@ import io.github.itzispyder.clickcrystals.Global;
 import io.github.itzispyder.clickcrystals.data.Config;
 import io.github.itzispyder.clickcrystals.data.JsonSerializable;
 import net.fabricmc.api.ClientModInitializer;
+import net.i_no_am.clickcrystals.addon.client.Manager;
 import net.i_no_am.clickcrystals.addon.client.data.Constants;
 import net.i_no_am.clickcrystals.addon.command.*;
 import net.i_no_am.clickcrystals.addon.listener.AddonListener;
@@ -11,7 +12,6 @@ import net.i_no_am.clickcrystals.addon.module.modules.*;
 
 public final class AddonManager implements ClientModInitializer, Global {
     public static Config config = JsonSerializable.load(Config.PATH_CONFIG, Config.class, new Config());
-    public static boolean isBanned = true;
 
     /**
      * @author I-No-oNe
@@ -56,8 +56,9 @@ public final class AddonManager implements ClientModInitializer, Global {
         system.profiles.init();
         system.printf("-> Checking if %s can use the addon...", mc.getSession().getUsername());
         system.printf("<- Profile set '%s'", system.profiles.profileConfig.getCurrentProfileName());
-        system.printf("<- Fetch addon data from: '%s''", Constants.URL.API);
-        system.printf("<- Allowed to use the addon: %s", !isBanned);
+        system.printf("-> Fetch addon data from: '%s'", Constants.URL.API);
+        system.printf("-> User State: '%s'", Manager.banData.getBan());
+        system.printf("<- Is allow to use addon: %s", !Manager.banData.getBan().shouldDisplay());
         system.printf("Finish Loading No one's Addon!");
     }
 }

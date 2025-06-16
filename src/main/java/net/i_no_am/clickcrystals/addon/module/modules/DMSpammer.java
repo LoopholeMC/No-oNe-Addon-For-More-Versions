@@ -5,11 +5,14 @@ import io.github.itzispyder.clickcrystals.events.events.world.ClientTickEndEvent
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
 import io.github.itzispyder.clickcrystals.util.minecraft.ChatUtils;
+import io.github.itzispyder.clickcrystals.util.minecraft.PlayerUtils;
+import io.github.itzispyder.clickcrystals.util.misc.Randomizer;
+import io.github.itzispyder.clickcrystals.util.misc.Timer;
 import net.i_no_am.clickcrystals.addon.module.AddonListenerModule;
+import net.minecraft.client.network.ClientPlayerEntity;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class DMSpammer extends AddonListenerModule {
 
@@ -42,33 +45,74 @@ public class DMSpammer extends AddonListenerModule {
 
     public final ModuleSetting<Integer> delayTicks = scGeneral.add(createIntSetting()
             .name("delay-ticks")
-            .description("Delay between each DM (in ticks, 20 ticks = 1 second).")
+            .description("Average delay between each DM (in ticks, 20 ticks = 1 second).")
             .min(1)
             .max(200)
             .def(40)
             .build()
     );
 
-    private final AtomicInteger tickCounter = new AtomicInteger(0);
-    private int targetIndex = 0;
+    private long nextAllowedTime = 0;
+    private final Randomizer random = new Randomizer();
+    private final Map<String, Timer> cooldowns = new HashMap<>();
+    private boolean warnedNoPlayers = false;
 
     @EventHandler
     private void onTick(ClientTickEndEvent e) {
         if (!isEnabled()) return;
 
-        if (tickCounter.incrementAndGet() < delayTicks.getVal()) return;
-        tickCounter.set(0);
+        ClientPlayerEntity player = PlayerUtils.player();
+        if (player == null || player.networkHandler == null) return;
 
-        List<String> targetList = Arrays.stream(targets.getVal().split(",")).map(String::trim).toList();
-        List<String> ignoreList = Arrays.stream(ignores.getVal().split(",")).map(String::trim).toList();
+        long currentTime = System.currentTimeMillis();
+        if (currentTime < nextAllowedTime) return;
+
+        List<String> targetList = Arrays.stream(targets.getVal().split(","))
+                .map(String::trim)
+                .map(String::toLowerCase)
+                .filter(s -> !s.isEmpty())
+                .toList();
+
+        List<String> ignoreList = Arrays.stream(ignores.getVal().split(","))
+                .map(String::trim)
+                .map(String::toLowerCase)
+                .toList();
 
         if (targetList.isEmpty()) return;
 
-        if (targetIndex >= targetList.size()) targetIndex = 0;
-        String target = targetList.get(targetIndex++);
+        List<String> onlinePlayers = player.networkHandler.getPlayerList().stream()
+                .map(entry -> entry.getProfile().getName().toLowerCase())
+                .filter(name -> !ignoreList.contains(name) && targetList.contains(name))
+                .collect(Collectors.toList());
 
-        if (ignoreList.contains(target)) return;
+        if (onlinePlayers.isEmpty()) {
+            if (!warnedNoPlayers) {
+                ChatUtils.sendPrefixMessage("§cNo target players are online or found!");
+                warnedNoPlayers = true;
+            }
+            return;
+        }
 
-        ChatUtils.sendChatMessage("/msg " + target + " " + message.getVal());
+        Collections.shuffle(onlinePlayers);
+        warnedNoPlayers = false; // Reset warning since there are valid players
+
+        for (String target : onlinePlayers) {
+            if (cooldowns.containsKey(target)) {
+                Timer.End end = cooldowns.get(target).end();
+                long cooldownMs = delayTicks.getVal() * 2 * 50L;
+                if (end.timePassed() < cooldownMs) continue;
+            }
+
+            ChatUtils.sendChatCommand("msg " + target + " " + message.getVal());
+
+            cooldowns.put(target, Timer.start());
+
+            int baseTicks = delayTicks.getVal();
+            double multiplier = 0.8 + (random.getRandomDouble(0.1, 10) * 0.4); // ~0.8x–1.2x
+            long randomDelayMs = (long) (baseTicks * 50 * multiplier);
+            nextAllowedTime = currentTime + randomDelayMs;
+
+            break;
+        }
     }
 }
