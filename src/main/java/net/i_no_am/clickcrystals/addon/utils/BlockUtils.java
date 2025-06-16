@@ -46,6 +46,6 @@ public class BlockUtils implements Global {
     public static boolean isAnchorLoaded(int charges, BlockPos pos) {
         var state = mc.player.getWorld().getBlockState(pos);
         if (state.getBlock().equals(Blocks.RESPAWN_ANCHOR)) return state.get(RespawnAnchorBlock.CHARGES) == charges;
-        return isAnchorLoaded(charges, pos);
+        return false;
     }
 }
