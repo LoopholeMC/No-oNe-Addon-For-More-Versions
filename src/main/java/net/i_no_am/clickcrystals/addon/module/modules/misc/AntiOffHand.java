@@ -1,4 +1,4 @@
-package net.i_no_am.clickcrystals.addon.module.modules;
+package net.i_no_am.clickcrystals.addon.module.modules.misc;
 
 import io.github.itzispyder.clickcrystals.events.EventHandler;
 import io.github.itzispyder.clickcrystals.events.events.client.KeyPressEvent;
@@ -21,14 +21,14 @@ public class AntiOffHand extends AddonListenerModule {
     public final ModuleSetting<String> offHandList = scGeneral.add(createStringSetting()
             .name("off-hand-item-list")
             .description("List of items that prevent off-hand swap.")
-            .def("totem,crystal,pearl")
+            .def("totem")
             .build()
     );
 
     public final ModuleSetting<String> mainHandList = scGeneral.add(createStringSetting()
             .name("main-hand-item-list")
             .description("List of items that prevent main-hand swap.")
-            .def("totem,crystal,pearl")
+            .def("crystal,pearl,elytra,armor,sword")
             .build()
     );
 

@@ -1,4 +1,4 @@
-package net.i_no_am.clickcrystals.addon.module.modules;
+package net.i_no_am.clickcrystals.addon.module.modules.misc;
 
 import net.i_no_am.clickcrystals.addon.module.AddonModule;
 

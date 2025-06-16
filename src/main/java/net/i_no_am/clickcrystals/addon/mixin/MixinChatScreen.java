@@ -1,7 +1,7 @@
 package net.i_no_am.clickcrystals.addon.mixin;
 
 import io.github.itzispyder.clickcrystals.modules.Module;
-import net.i_no_am.clickcrystals.addon.module.modules.InfiniteChat;
+import net.i_no_am.clickcrystals.addon.module.modules.misc.InfiniteChat;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import org.spongepowered.asm.mixin.Mixin;

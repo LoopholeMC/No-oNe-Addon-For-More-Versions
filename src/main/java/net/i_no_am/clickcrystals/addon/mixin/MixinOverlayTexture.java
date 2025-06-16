@@ -3,7 +3,7 @@ package net.i_no_am.clickcrystals.addon.mixin;
 import io.github.itzispyder.clickcrystals.Global;
 import io.github.itzispyder.clickcrystals.modules.Module;
 import net.i_no_am.clickcrystals.addon.listener.events.mc.OverlayTextureInitEvent;
-import net.i_no_am.clickcrystals.addon.module.modules.HitColor;
+import net.i_no_am.clickcrystals.addon.module.modules.render.HitColor;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.texture.NativeImageBackedTexture;
 import org.spongepowered.asm.mixin.Final;

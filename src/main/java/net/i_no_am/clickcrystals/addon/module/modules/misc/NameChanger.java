@@ -1,4 +1,4 @@
-package net.i_no_am.clickcrystals.addon.module.modules;
+package net.i_no_am.clickcrystals.addon.module.modules.misc;
 
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
@@ -16,9 +16,4 @@ public class NameChanger extends AddonModule {
             .def("Steve1")
             .build()
     );
-// TODO FIX OR REMOVE!
-    public String getUserName() {
-        if (!this.isEnabled() || fakeName.getVal().isEmpty()) return null;
-        return fakeName.getVal();
-    }
 }

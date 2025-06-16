@@ -8,7 +8,14 @@ import net.i_no_am.clickcrystals.addon.client.Manager;
 import net.i_no_am.clickcrystals.addon.client.data.Constants;
 import net.i_no_am.clickcrystals.addon.command.*;
 import net.i_no_am.clickcrystals.addon.listener.AddonListener;
-import net.i_no_am.clickcrystals.addon.module.modules.*;
+import net.i_no_am.clickcrystals.addon.module.modules.exploit.GhostInteractions;
+import net.i_no_am.clickcrystals.addon.module.modules.misc.*;
+import net.i_no_am.clickcrystals.addon.module.modules.exploit.DMSpammer;
+import net.i_no_am.clickcrystals.addon.module.modules.pvp.LootKeeper;
+import net.i_no_am.clickcrystals.addon.module.modules.pvp.MiddleClickPing;
+import net.i_no_am.clickcrystals.addon.module.modules.pvp.NoPotionsHud;
+import net.i_no_am.clickcrystals.addon.module.modules.pvp.Prevent;
+import net.i_no_am.clickcrystals.addon.module.modules.render.HitColor;
 
 public final class AddonManager implements ClientModInitializer, Global {
     public static Config config = JsonSerializable.load(Config.PATH_CONFIG, Config.class, new Config());

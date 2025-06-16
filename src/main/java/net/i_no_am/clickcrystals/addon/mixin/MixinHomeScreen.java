@@ -3,7 +3,7 @@ package net.i_no_am.clickcrystals.addon.mixin;
 import io.github.itzispyder.clickcrystals.Global;
 import io.github.itzispyder.clickcrystals.gui.screens.HomeScreen;
 import io.github.itzispyder.clickcrystals.modules.Module;
-import net.i_no_am.clickcrystals.addon.module.modules.DiscordScreenDisabler;
+import net.i_no_am.clickcrystals.addon.module.modules.misc.DiscordScreenDisabler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;

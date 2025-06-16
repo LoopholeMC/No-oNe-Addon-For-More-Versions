@@ -3,7 +3,7 @@ package net.i_no_am.clickcrystals.addon.mixin;
 import io.github.itzispyder.clickcrystals.Global;
 import io.github.itzispyder.clickcrystals.modules.Module;
 import io.github.itzispyder.clickcrystals.util.minecraft.PlayerUtils;
-import net.i_no_am.clickcrystals.addon.module.modules.NameChanger;
+import net.i_no_am.clickcrystals.addon.module.modules.misc.NameChanger;
 import net.minecraft.text.TextVisitFactory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;

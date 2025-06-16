@@ -1,4 +1,4 @@
-package net.i_no_am.clickcrystals.addon.module.modules;
+package net.i_no_am.clickcrystals.addon.module.modules.pvp;
 
 import io.github.itzispyder.clickcrystals.events.EventHandler;
 import net.i_no_am.clickcrystals.addon.listener.events.mc.EffectsOverlayInitEvent;

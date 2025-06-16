@@ -1,12 +1,10 @@
-package net.i_no_am.clickcrystals.addon.module.modules;
+package net.i_no_am.clickcrystals.addon.module.modules.misc;
 
 import com.google.gson.*;
-import io.github.itzispyder.clickcrystals.client.client.ModMenuIntegration;
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
 import io.github.itzispyder.clickcrystals.util.FileValidationUtils;
 import net.fabricmc.loader.api.FabricLoader;
-import net.i_no_am.clickcrystals.addon.client.Manager;
 import net.i_no_am.clickcrystals.addon.client.data.Constants;
 import net.i_no_am.clickcrystals.addon.module.AddonModule;
 

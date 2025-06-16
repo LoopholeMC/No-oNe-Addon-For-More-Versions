@@ -43,6 +43,13 @@ public class BlockUtils implements Global {
         return false;
     }
 
+    public static boolean isAnchorLoaded(int charges) {
+        if (!(mc.crosshairTarget instanceof BlockHitResult hit)) return false;
+        var state = mc.player.getWorld().getBlockState(hit.getBlockPos());
+        if (state.getBlock().equals(Blocks.RESPAWN_ANCHOR)) return state.get(RespawnAnchorBlock.CHARGES) == charges;
+        return false;
+    }
+
     public static boolean isAnchorLoaded(int charges, BlockPos pos) {
         var state = mc.player.getWorld().getBlockState(pos);
         if (state.getBlock().equals(Blocks.RESPAWN_ANCHOR)) return state.get(RespawnAnchorBlock.CHARGES) == charges;

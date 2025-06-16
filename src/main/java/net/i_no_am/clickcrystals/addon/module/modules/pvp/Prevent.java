@@ -1,4 +1,4 @@
-package net.i_no_am.clickcrystals.addon.module.modules;
+package net.i_no_am.clickcrystals.addon.module.modules.pvp;
 
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
@@ -44,23 +44,35 @@ public class Prevent extends AddonModule {
     );
 
     public ActionResult cannotPlace() {
+        if (!isEnabled()) return ActionResult.SUCCESS;
 
-        if (BlockUtils.isLookingAt(Blocks.GLOWSTONE) && !disableDoubleAnchor.getVal() || BlockUtils.isLookingAt(Blocks.RESPAWN_ANCHOR) && !disableDoubleGlowstone.getVal() || !isEnabled())
-            return ActionResult.PASS;
-
-        var pos = BlockUtils.findBlockPos(Blocks.RESPAWN_ANCHOR, 20);
-
-        if (BlockUtils.isAnchorLoaded(1, pos) && HotbarUtils.isHoldingEitherHand(Items.RESPAWN_ANCHOR) && disableDoubleAnchor.getVal())
+        // Prevent placing a respawn anchor on another anchor
+        if (disableDoubleAnchor.getVal()
+                && HotbarUtils.isHoldingEitherHand(Items.RESPAWN_ANCHOR)
+                && (BlockUtils.isLookingAt(Blocks.RESPAWN_ANCHOR) && !BlockUtils.isAnchorLoaded(1))) {
             return ActionResult.FAIL;
+        }
 
-        if (disableGlowstonePlacement.getVal() && HotbarUtils.isHoldingEitherHand(Items.GLOWSTONE) && (!BlockUtils.isLookingAt(Blocks.RESPAWN_ANCHOR) || BlockUtils.isAnchorLoaded(1, pos)))
+        // Prevent placing a glowstone on another glowstone
+        if (disableDoubleGlowstone.getVal()
+                && HotbarUtils.isHoldingEitherHand(Items.GLOWSTONE)
+                && BlockUtils.isLookingAt(Blocks.GLOWSTONE)) {
             return ActionResult.FAIL;
+        }
 
-        if (HotbarUtils.isHoldingEitherHand(Items.RESPAWN_ANCHOR) && disableAnchorOnGlowstone.getVal() && BlockUtils.isLookingAt(Blocks.GLOWSTONE))
+        // Prevent placing a respawn anchor on glowstone
+        if (disableAnchorOnGlowstone.getVal()
+                && HotbarUtils.isHoldingEitherHand(Items.RESPAWN_ANCHOR)
+                && BlockUtils.isLookingAt(Blocks.GLOWSTONE)) {
             return ActionResult.FAIL;
+        }
 
-        if (HotbarUtils.isHoldingEitherHand(Items.GLOWSTONE) && disableDoubleGlowstone.getVal() && BlockUtils.isLookingAt(Blocks.GLOWSTONE))
+        // Prevent placing glowstone if not targeting anchor or anchor is loaded
+        if (disableGlowstonePlacement.getVal()
+                && HotbarUtils.isHoldingEitherHand(Items.GLOWSTONE)
+                && (!BlockUtils.isLookingAt(Blocks.RESPAWN_ANCHOR) || BlockUtils.isAnchorLoaded(1))) {
             return ActionResult.FAIL;
+        }
 
         return ActionResult.PASS;
     }
