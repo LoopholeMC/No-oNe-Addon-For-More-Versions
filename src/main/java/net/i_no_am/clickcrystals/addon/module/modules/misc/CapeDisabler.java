@@ -22,7 +22,7 @@ public class CapeDisabler extends AddonListenerModule {
     );
 
     public CapeDisabler() {
-        super("cape-disabler", "Disable cc capes.");
+        super("cape-disabler", "Disables ClickCrystals capes for vanilla cape");
     }
 
     @EventHandler

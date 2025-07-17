@@ -9,7 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 
 public class UpsideDown extends AddonListenerModule {
     public UpsideDown() {
-        super("upside-down", "Make every player & entity upside down.");
+        super("upside-down", "Renders all players and entities upside down");
     }
 
     private final SettingSection scGeneral = getGeneralSection();

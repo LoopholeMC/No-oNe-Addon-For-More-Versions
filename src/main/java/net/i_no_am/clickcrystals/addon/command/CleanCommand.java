@@ -17,7 +17,7 @@ import static net.i_no_am.clickcrystals.addon.command.argument.LogFileArgumentTy
 public class CleanCommand extends Command {
 
     public CleanCommand() {
-        super("clean", "Clean specific lines in chat or logs", "log-cleaner");
+        super("clean", "Clears specific lines from chat or log files", "log-cleaner");
     }
 
     @Override

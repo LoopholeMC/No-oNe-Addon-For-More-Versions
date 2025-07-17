@@ -12,7 +12,7 @@ import net.minecraft.text.OrderedText;
 import net.minecraft.text.StringVisitable;
 import net.minecraft.text.Text;
 
-public class AddonScreen extends GuiScreen {
+public class AddonBanScreen extends GuiScreen {
     public final int windowWidth = mc.getWindow().getScaledWidth();
     public final int windowHeight = mc.getWindow().getScaledHeight();
     public final int baseWidth = 420;
@@ -22,7 +22,7 @@ public class AddonScreen extends GuiScreen {
 
     private final HyperLinkElement discordLink = new HyperLinkElement(0, 0, "https://discord.com/users/1051897115447660697", "https://discord.com/users/I-No-oNe", 1.0F);
 
-    public AddonScreen() {
+    public AddonBanScreen() {
         super("addon-ban-screen");
         this.addChild(discordLink);
     }
@@ -60,6 +60,6 @@ public class AddonScreen extends GuiScreen {
 
     @Override
     public void resize(MinecraftClient client, int width, int height) {
-        client.setScreen(new AddonScreen());
+        client.setScreen(new AddonBanScreen());
     }
 }

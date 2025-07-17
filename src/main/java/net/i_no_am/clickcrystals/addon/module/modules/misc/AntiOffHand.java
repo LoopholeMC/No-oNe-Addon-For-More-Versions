@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class AntiOffHand extends AddonListenerModule {
 
     public AntiOffHand() {
-        super("anti-off-hand", "Cancel swapping items if certain conditions are met");
+        super("anti-off-hand", "Prevents off-hand swapping under specific conditions");
     }
 
     private final SettingSection scGeneral = getGeneralSection();

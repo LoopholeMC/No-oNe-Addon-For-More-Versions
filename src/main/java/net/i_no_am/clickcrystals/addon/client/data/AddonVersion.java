@@ -3,7 +3,7 @@ package net.i_no_am.clickcrystals.addon.client.data;
 import io.github.itzispyder.clickcrystals.Global;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.i_no_am.clickcrystals.addon.utils.NetworkUtils;
+import net.i_no_am.clickcrystals.addon.utils.network.NetworkUtils;
 import net.minecraft.client.gui.screen.ConfirmScreen;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;

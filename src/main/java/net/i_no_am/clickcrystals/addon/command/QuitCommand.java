@@ -10,7 +10,7 @@ import net.minecraft.text.Text;
 public class QuitCommand extends Command {
 
     public QuitCommand() {
-        super("quit", "quit game", ",quit");
+        super("quit", "Instantly quits the game or disconnects from server", ",quit");
     }
 
     @Override

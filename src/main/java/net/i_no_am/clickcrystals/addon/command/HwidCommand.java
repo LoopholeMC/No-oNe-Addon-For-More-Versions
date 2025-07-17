@@ -8,7 +8,7 @@ import net.minecraft.util.Formatting;
 
 public class HwidCommand extends Command {
     public HwidCommand(){
-        super("hwid","show you your hwid",",hwid");
+        super("hwid","Displays the user's HWID (Hardware ID)",",hwid");
     }
 
     @Override

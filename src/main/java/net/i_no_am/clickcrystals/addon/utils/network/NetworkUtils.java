@@ -1,4 +1,4 @@
-package net.i_no_am.clickcrystals.addon.utils;
+package net.i_no_am.clickcrystals.addon.utils.network;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -14,22 +14,13 @@ import java.time.Duration;
 
 public class NetworkUtils implements Global {
 
-    public static String isValid(String url) {
-        try {
-            int status = getResponse(url).statusCode();
-            if (status == 200 || status == 201)
-                return url;
-        } catch (Exception ignored) {
-        }
-        return null;
-    }
 
     public static JsonElement getJson(String url, String key) {
         try {
-            String finalUrl = isValid(url);
-            if (finalUrl == null) return null;
+            BetterURL finalUrl = BetterURL.create(url);
+            if (finalUrl.toString() == null) return null;
 
-            JsonObject jsonData = readJson(finalUrl);
+            JsonObject jsonData = readJson(finalUrl.toString());
             if (jsonData == null || !jsonData.has(key)) return null;
 
             return jsonData.get(key);

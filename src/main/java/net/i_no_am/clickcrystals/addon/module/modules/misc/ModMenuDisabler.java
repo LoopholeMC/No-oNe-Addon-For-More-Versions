@@ -16,7 +16,7 @@ import java.nio.file.Path;
 public class ModMenuDisabler extends AddonModule {
 
     public ModMenuDisabler() {
-        super("mod-menu-disabler", "disable clickcrystals from showing on mod menu, re-launch game after enabling the module");
+        super("mod-menu-disabler", "Hides ClickCrystals from mod menu, REQUIRES RESTART");
     }
 
     private final SettingSection scGeneral = getGeneralSection();

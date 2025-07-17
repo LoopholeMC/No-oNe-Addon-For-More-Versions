@@ -8,14 +8,15 @@ import net.i_no_am.clickcrystals.addon.client.Manager;
 import net.i_no_am.clickcrystals.addon.client.data.Constants;
 import net.i_no_am.clickcrystals.addon.command.*;
 import net.i_no_am.clickcrystals.addon.listener.AddonListener;
+import net.i_no_am.clickcrystals.addon.module.modules.exploit.DMSpammer;
 import net.i_no_am.clickcrystals.addon.module.modules.exploit.GhostInteractions;
 import net.i_no_am.clickcrystals.addon.module.modules.misc.*;
-import net.i_no_am.clickcrystals.addon.module.modules.exploit.DMSpammer;
 import net.i_no_am.clickcrystals.addon.module.modules.pvp.LootKeeper;
 import net.i_no_am.clickcrystals.addon.module.modules.pvp.MiddleClickPing;
 import net.i_no_am.clickcrystals.addon.module.modules.pvp.NoPotionsHud;
 import net.i_no_am.clickcrystals.addon.module.modules.pvp.Prevent;
 import net.i_no_am.clickcrystals.addon.module.modules.render.HitColor;
+import net.i_no_am.clickcrystals.addon.utils.FileUtils;
 
 public final class AddonManager implements ClientModInitializer, Global {
     public static Config config = JsonSerializable.load(Config.PATH_CONFIG, Config.class, new Config());
@@ -61,6 +62,7 @@ public final class AddonManager implements ClientModInitializer, Global {
         config.loadEntireConfig();
         system.println("-> loading profiles...");
         system.profiles.init();
+        FileUtils.init();
         system.printf("-> Checking if %s can use the addon...", mc.getSession().getUsername());
         system.printf("<- Profile set '%s'", system.profiles.profileConfig.getCurrentProfileName());
         system.printf("-> Fetch addon data from: '%s'", Constants.URL.API);

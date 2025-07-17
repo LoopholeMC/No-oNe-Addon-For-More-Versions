@@ -6,7 +6,7 @@ import net.i_no_am.clickcrystals.addon.module.AddonModule;
 
 public class NameChanger extends AddonModule {
     public NameChanger() {
-        super("name-changer", "change your player name (client side)");
+        super("name-changer", "Changes the displayed name of the player (client-side only)");
     }
 
     private final SettingSection scGeneral = getGeneralSection();

@@ -6,7 +6,7 @@ import net.i_no_am.clickcrystals.addon.module.AddonModule;
 
 public class SafeWalk extends AddonModule {
     public SafeWalk() {
-        super("safe-walk", "crouch when the player in the edge of a block");
+        super("safe-walk", "Automatically sneaks at the edge of blocks");
     }
 
     private final SettingSection scGeneral = getGeneralSection();

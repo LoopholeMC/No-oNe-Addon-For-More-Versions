@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class AddonInfoCommand extends Command {
     public AddonInfoCommand() {
-        super("addon-info", "Copy the add-on module' & commands' descriptions and names into a chart", ",get addon module and command info");
+        super("addon-info", "Copies a summary of all modules and commands into your clipboard", ",addon-info");
     }
 
     @Override

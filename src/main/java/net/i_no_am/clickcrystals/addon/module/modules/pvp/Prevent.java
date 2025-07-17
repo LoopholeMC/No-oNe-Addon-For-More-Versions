@@ -11,7 +11,7 @@ import net.minecraft.util.ActionResult;
 
 public class Prevent extends AddonModule {
     public Prevent() {
-        super("prevent", "Prevent making common mistakes in crystal PvP");
+        super("prevent", "Blocks accidental glowstone or anchor placements");
     }
 
     private final SettingSection scGeneral = getGeneralSection();

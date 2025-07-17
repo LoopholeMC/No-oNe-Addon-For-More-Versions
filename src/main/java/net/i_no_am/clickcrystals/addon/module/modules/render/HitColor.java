@@ -6,7 +6,7 @@ import io.github.itzispyder.clickcrystals.events.events.world.ClientTickEndEvent
 import io.github.itzispyder.clickcrystals.modules.ModuleSetting;
 import io.github.itzispyder.clickcrystals.modules.settings.SettingSection;
 import io.github.itzispyder.clickcrystals.util.minecraft.PlayerUtils;
-import net.i_no_am.clickcrystals.addon.listener.events.mc.OverlayTextureInitEvent;
+import net.i_no_am.clickcrystals.addon.accessor.OverlayTextureAccessor;
 import net.i_no_am.clickcrystals.addon.module.AddonListenerModule;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
@@ -17,7 +17,7 @@ import java.awt.*;
 
 public class HitColor extends AddonListenerModule {
     public HitColor() {
-        super("hit-color", "Change entity hit color.");
+        super("hit-color", "Changes the hit flash color of entities");
     }
 
     private final SettingSection scGeneral = getGeneralSection();
@@ -58,12 +58,7 @@ public class HitColor extends AddonListenerModule {
             .build()
     );
 
-    NativeImageBackedTexture imageBackedTexture;
-
-    @EventHandler
-    private void onInit(OverlayTextureInitEvent event) {
-        imageBackedTexture = event.getImageBackedTexture();
-    }
+    private NativeImageBackedTexture imageBackedTexture;
 
     @Override
     public void onDisable() {
@@ -73,7 +68,8 @@ public class HitColor extends AddonListenerModule {
 
     @EventHandler
     private void onTick(ClientTickEndEvent event) {
-        if (!isEnabled()|| imageBackedTexture == null || PlayerUtils.invalid()) return;
+        if (!isEnabled() || PlayerUtils.invalid()) return;
+        imageBackedTexture = ((OverlayTextureAccessor) mc.gameRenderer.getOverlayTexture()).addon$getTexture();
         applyOverlayColor(imageBackedTexture);
     }
 

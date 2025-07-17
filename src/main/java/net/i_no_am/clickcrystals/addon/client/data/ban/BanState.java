@@ -6,7 +6,11 @@ public enum BanState {
     I_NO_AM,
     FAILED;
 
+    /***
+     * @apiNote returns false because the addon is public.
+     */
     public boolean shouldDisplay() {
-        return this != ALLOWED && this != I_NO_AM;
+//        return this != ALLOWED && this != I_NO_AM;
+    return false;
     }
 }

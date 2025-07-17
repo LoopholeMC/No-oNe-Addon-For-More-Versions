@@ -6,7 +6,7 @@ import net.minecraft.command.CommandSource;
 
 public class FreeRAMCommand extends Command {
     public FreeRAMCommand() {
-        super("free-ram", "Free the RAM of the local system", ",free-ram");
+        super("free-ram", "Attempts to free up system memory", ",free-ram");
     }
 
     @Override

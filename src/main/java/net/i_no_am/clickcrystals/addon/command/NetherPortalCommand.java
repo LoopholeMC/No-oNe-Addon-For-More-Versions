@@ -9,18 +9,24 @@ import net.minecraft.util.math.BlockPos;
 
 public class NetherPortalCommand extends Command {
 
+    int x, y, z;
+
     public NetherPortalCommand() {
-        super("findportal", "Finds Nether portals nearby", ",findportal");
+        super("find-portal", "Locates nearby Nether portals", ",find-portal");
     }
 
     @Override
     public void build(LiteralArgumentBuilder<CommandSource> builder) {
         builder.executes(context -> {
-            BlockPos portalPos = BlockUtils.findBlockPos(Blocks.NETHER_PORTAL, mc.options.getSimulationDistance().getValue());
-            if (portalPos == null)
-                info("No Nether portals are nearby.");
-            else
-                info("Found Nether portal at: X: %d, Y: %d, Z: %d".formatted(portalPos.getX(), portalPos.getY(), portalPos.getZ()));
+            BlockPos portalPos = BlockUtils.findBlockPos(Blocks.NETHER_PORTAL, mc.options.getSimulationDistance().getValue() * 16);
+            if (portalPos == null) error("No Nether portals are nearby.");
+
+            x = portalPos.getX();
+            y = portalPos.getY();
+            z = portalPos.getZ();
+
+            if (x == 0 && y == 0 && z == 0) error("No Nether portals are nearby.");
+            else info("Found Nether portal at: X: %d, Y: %d, Z: %d".formatted(x, y, z));
             return SINGLE_SUCCESS;
         });
     }

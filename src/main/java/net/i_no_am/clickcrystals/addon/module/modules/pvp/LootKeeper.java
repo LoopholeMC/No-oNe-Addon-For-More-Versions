@@ -21,7 +21,7 @@ import java.util.Locale;
 public class LootKeeper extends AddonListenerModule {
 
     public LootKeeper() {
-        super("loot-keeper", "Throw every item on slot that isn't in the list.");
+        super("loot-keeper", "Prevents specific items from being dropped or lost");
     }
 
     private boolean isToggle = false;
