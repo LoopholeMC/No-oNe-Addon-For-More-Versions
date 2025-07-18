@@ -92,7 +92,7 @@ public class HitColor extends AddonListenerModule {
                     int alpha = (int) ((1.0F - (float) j / 15.0F * 0.75F) * 255.0F);
                     nativeImage.setColorArgb(j, i, ColorHelper.withAlpha(alpha, -1));
                 }
-                RenderSystem.setupOverlayColor(originalTexture.getGlTexture());
+                RenderSystem.setupOverlayColor(originalTexture.getGlTextureView());
             }
         }
 
@@ -115,7 +115,7 @@ public class HitColor extends AddonListenerModule {
             }
         }
         uploadTexture(originalTexture);
-        RenderSystem.setupOverlayColor(originalTexture.getGlTexture());
+        RenderSystem.setupOverlayColor(originalTexture.getGlTextureView());
     }
 
     private void uploadTexture(NativeImageBackedTexture texture) {

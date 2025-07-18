@@ -44,7 +44,7 @@ public class AddonWelcomeScreen extends GuiScreen {
     @Override
     public void baseRender(DrawContext context, int mouseX, int mouseY, float delta) {
         this.renderPanoramaBackground(context, delta);
-        this.applyBlur();
+        this.applyBlur(context);
         this.renderDarkening(context);
 
         int cX = baseX + baseWidth / 2;

@@ -18,7 +18,7 @@ public class NetherPortalCommand extends Command {
     @Override
     public void build(LiteralArgumentBuilder<CommandSource> builder) {
         builder.executes(context -> {
-            BlockPos portalPos = BlockUtils.findBlockPos(Blocks.NETHER_PORTAL, mc.options.getSimulationDistance().getValue() * 16);
+            BlockPos portalPos = BlockUtils.findBlockPos(Blocks.NETHER_PORTAL);
             if (portalPos == null) error("No Nether portals are nearby.");
 
             x = portalPos.getX();

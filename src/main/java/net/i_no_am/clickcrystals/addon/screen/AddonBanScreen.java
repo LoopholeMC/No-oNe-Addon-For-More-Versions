@@ -32,7 +32,7 @@ public class AddonBanScreen extends GuiScreen {
         if (PlayerUtils.invalid()) {
             this.renderPanoramaBackground(context, delta);
         }
-        this.applyBlur();
+        this.applyBlur(context);
         this.renderDarkening(context);
 
         int cX = baseX + baseWidth / 2;
