@@ -1,5 +1,7 @@
 # No oNe Addon
 
+Only for 1.21.1 (More versions coming soon)
+
 A powerful and feature-rich addon for [ClickCrystals](https://github.com/ClickCrystals-Development/ClickCrystals), made to enhance your
 Minecraft PvP and utility experience.
 
